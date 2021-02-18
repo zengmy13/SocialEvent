@@ -1,0 +1,12 @@
+.masthead.vertical.ui.segment {
+    background: linear-gradient(135deg, rgb(24, 42, 115) 0%, rgb(33, 138, 174) 69%,
+    rgb(32, 167, 172) 89%);
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.masthead h1 {
+    font-size:4rem;
+}
+

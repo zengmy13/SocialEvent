@@ -1,0 +1,21 @@
+.main.container.ui {
+    margin-top: 5vh;
+}
+
+.formcontainer {
+    margin-top: 5vh;
+}
+.react-datepicker-wrapper {
+    width: 100%;
+}
+div.react-calendar {
+    width: 100%;
+    border: none;
+}
+div.ui.selection.dropdown{
+    min-width:100%
+}
+div.ui.statistics{
+    justify-content: center;
+}
+
