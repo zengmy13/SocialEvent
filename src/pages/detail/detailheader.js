@@ -34,7 +34,6 @@ export default function Detailheader(props) {
             setloading(false);
         }
     }
-   console.log(modalopen);
     function returnbuttons() {
         if ( selectedevent?.hostUid !== currentuser?.uid && selectedevent?.isCancel !== true) {
             if (selectedevent?.attendeesId?.includes(currentuser?.uid)) {
@@ -72,7 +71,7 @@ export default function Detailheader(props) {
                     </Item>
                 </Segment>
             </Segment>
-            <Segment clearing="true">
+            <Segment clearing>
                 {returnbuttons()}
                 {
                     selectedevent?.hostUid === currentuser?.uid ?

@@ -69,7 +69,7 @@ export default function Detailchat(props) {
                                                 commentid: comment.id
                                             })
                                         }}>
-                                            REPLAY
+                                            Reply
                                         </Comment.Action>
                                         {
                                             textareaopen.open &&

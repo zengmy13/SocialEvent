@@ -22,7 +22,7 @@ export default function Placeholderimage() {
                 </Segment>
                 <Segment secondary style={{minHeight: 70}}>
                 </Segment>
-                <Segment clearing="true">
+                <Segment clearing>
                     <Button content='view' floated='right' color='blue' disabled></Button>
                 </Segment>
             </Segment.Group>
@@ -43,7 +43,7 @@ export default function Placeholderimage() {
                 </Segment>
                 <Segment secondary style={{minHeight: 70}}>
                 </Segment>
-                <Segment clearing="true">
+                <Segment clearing>
                     <Button content='view' floated='right' color='blue' disabled></Button>
                 </Segment>
             </Segment.Group>

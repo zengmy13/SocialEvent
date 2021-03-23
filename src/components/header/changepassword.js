@@ -71,6 +71,7 @@ export default function Changepassword() {
                                             {errors.auth &&
                                             <Label style={{marginBottom: "5px"}} color='red'
                                                    pointing>{errors.auth}</Label>}
+                                                   <br/>
                                             <Button type='submit'
                                                     color='green'
                                                     content='Update password'

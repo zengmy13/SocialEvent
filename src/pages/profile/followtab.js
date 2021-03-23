@@ -1,6 +1,7 @@
 import React from 'react';
 import {Grid, Header, Tab, Card, Image} from "semantic-ui-react";
 import {Usedocshook} from "../../hook/firestorehook";
+import user from '../../assets/user.png'
 import {getfolloweingprofile, getfollowersprofile} from "../../firebase/fromfirebase";
 import {useDispatch, useSelector} from "react-redux";
 import {followerprofile, followingprofile} from "./store/actioncreator";
@@ -26,7 +27,7 @@ export default function Followtab(props) {
                         activeIndex == 3
                             ? followings.map((item, index) => {
                                 return <Card as={Link} to={`/profile/${item.id}`} key={item.id}>
-                                    <Image src={item.photoURL || null}
+                                    <Image src={item.photoURL || user}
                                            fluid
                                            style={{minHeight: 100, objectFit: "cover"}}/>
                                     <Card.Content textAlign='center' style={{color: "black"}}
@@ -38,7 +39,7 @@ export default function Followtab(props) {
                             })
                             : followers.map((item, index) => {
                                 return <Card as={Link} to={`/profile/${item.id}`} key={item.id}>
-                                    <Image src={item.photoURL || null}
+                                    <Image src={item.photoURL || user}
                                            fluid
                                            style={{minHeight: 100, objectFit: "cover"}}/>
                                     <Card.Content textAlign='center'

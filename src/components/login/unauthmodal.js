@@ -25,8 +25,7 @@ export default function Anauthmodal(props){
     function handleopenmodal(modalType){
         dispatch(openmodal(modalType));
         setopen(false);
-        setmodalopen(false);
-
+        // setmodalopen(false);
     }
     return (
         <Modal open={open} size='mini' onClose={handleclose}>

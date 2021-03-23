@@ -36,6 +36,7 @@ export const loginreducer = (state = defaultvalue, action) => {
                     photoURL: action.user.photoURL,
                     uid: action.user.uid,
                     providerId: action.user.providerData[0].providerId,
+                    description:action.user.description
                 }
             }
         case UPDATE_USER_INFO:
@@ -50,7 +51,7 @@ export const loginreducer = (state = defaultvalue, action) => {
         return {
             ...state,
             prevlocation:state.currentlocation,
-            currentlocation:action.location
+            currentlocation:action.payload.location
         }
     }
     return state;

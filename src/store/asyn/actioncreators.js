@@ -13,7 +13,6 @@ export const aynscsfinish = () => {
 }
 
 export const aynscserror = (error) => {
-    console.log(error)
     return {
         type: ASYNC_ERROR
     }

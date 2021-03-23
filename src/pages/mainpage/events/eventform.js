@@ -101,7 +101,7 @@ export default function Eventform(props) {
             }} validationSchema={validationSchema}>
                 {
                     ({dirty, isSubmitting, isValid, values}) => (
-                        <Form className='ui form clearing'>
+                        <Form className='ui form' clearing>
                             <Header content={selectedevent ? selectedevent.title : "Create events"}></Header>
                             <TextInput name='title' placeholder='title'/>
                             <SelectInput name='category' placeholder='category'/>

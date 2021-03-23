@@ -229,10 +229,7 @@ export async function updateuserinfo(info) {
         await batch.commit();
         return user.updateProfile({
             displayName: info.displayName
-        }).then(()=>{
-            console.log(1111)
         })
-
     }catch(error){
        throw error;
     }
@@ -402,8 +399,6 @@ export async function setmainphoto(photo) {
         await batch.commit();
         return user.updateProfile({
             photoURL: photo?.url
-        }).then(()=>{
-            console.log(222)
         })
     } catch (error) {
         throw error;

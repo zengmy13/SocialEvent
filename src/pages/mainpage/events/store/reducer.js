@@ -1,4 +1,4 @@
-import {CHANGE_DATE, CHANGE_FILTER, CLEAR_EVENTS, GET_EVENTS, GET_FEEDS} from "./actiontype";
+import {CHANGE_DATE, CHANGE_FILTER, CLEAR_EVENTS, GET_EVENTS, GET_FEEDS, SET_MESSAGE} from "./actiontype";
 
 const defaultvalue = {
     events: [],

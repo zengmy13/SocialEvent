@@ -6,7 +6,6 @@ import {useSelector, useDispatch} from "react-redux";
 import {Usesingaldochook} from "../../hook/firestorehook";
 import {getprofile} from "../../firebase/fromfirebase";
 import {getprofiles} from "./store/actioncreator";
-import Loadingpage from "../loading";
 
 export default function Profile(props) {
     const {currentuser} = useSelector(state => state.login);
@@ -18,7 +17,7 @@ export default function Profile(props) {
     Usesingaldochook({
         query: getprofile(id),
         data: (data) => dispatch(getprofiles(data)),
-        deps: [dispatch, id]
+        deps: [dispatch,id]
     })
     return (
         <Container style={{marginTop: "5vh"}}>
