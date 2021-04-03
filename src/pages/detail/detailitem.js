@@ -1,18 +1,19 @@
 import React from 'react';
-import Detailiteminfo from "./detailinfo";
-import Detailchat from "./detailchat";
-import Detailheader from "./detailheader";
+import DetailItemInfo from "./detailinfo";
+import DetailChat from "./detailchat";
+import DetailHeader from "./detailheader";
 
 
-export default function Detailitem(props) {
-    const {selectedevent} = props;
+
+export default function DetailItem(props) {
+    const {selectedEvent} = props;
     return (
         <>
-            <Detailheader selectedevent={selectedevent}/>
-            <Detailiteminfo selectedevent={selectedevent}/>
-            {selectedevent?.isCancel?
+            <DetailHeader selectedEvent={selectedEvent}/>
+            <DetailItemInfo selectedEvent={selectedEvent}/>
+            {selectedEvent?.isCancel?
                 null
-                : <Detailchat selectedeventid={selectedevent.id}/>}
+                : <DetailChat selectedEventId={selectedEvent.id}/>}
 
         </>
     )

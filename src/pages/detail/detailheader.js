@@ -4,44 +4,44 @@ import {Link} from "react-router-dom";
 import {useSelector} from "react-redux";
 import {cancelplace, jointheevent} from "../../firebase/fromfirebase";
 import {toast} from "react-toastify";
-import Anauthmodal from "../../components/login/unauthmodal";
+import AnauthModal from "../../components/login/unauthmodal";
 
-export default function Detailheader(props) {
+export default function DetailHeader(props) {
 
-    const {selectedevent} = props;
-    const [loading,setloading]=useState(false);
-    const {currentuser} = useSelector(state => state.login);
-    const [modalopen,setmodalopen]=useState(false);
+    const {selectedEvent} = props;
+    const [loading,setLoading]=useState(false);
+    const {currentUser} = useSelector(state => state.login);
+    const [modalOpen,setmodalOpen]=useState(false);
 
-    async function handlecancel() {
-        setloading(true);
+    async function handleCancel() {
+        setLoading(true);
         try {
-            await cancelplace(selectedevent);
-            setloading(false);
+            await cancelplace(selectedEvent);
+            setLoading(false);
         } catch (error) {
             toast.error(error.message)
-            setloading(false);
+            setLoading(false);
         }
     }
 
-    async function handlejoin() {
-        setloading(true)
+    async function handleJoin() {
+        setLoading(true)
         try {
-            await jointheevent(selectedevent);
-            setloading(false);
+            await jointheevent(selectedEvent);
+            setLoading(false);
         } catch (error) {
             toast.error(error.message)
-            setloading(false);
+            setLoading(false);
         }
     }
-    function returnbuttons() {
-        if ( selectedevent?.hostUid !== currentuser?.uid && selectedevent?.isCancel !== true) {
-            if (selectedevent?.attendeesId?.includes(currentuser?.uid)) {
+    function returnButtons() {
+        if ( selectedEvent?.hostUid !== currentUser?.uid && selectedEvent?.isCancel !== true) {
+            if (selectedEvent?.attendeesId?.includes(currentUser?.uid)) {
                 return <Button content='Cancel the place'
-                               basic onClick={ () => handlecancel()}
+                               basic onClick={ () => handleCancel()}
                 ></Button>
             } else {
-                return <Button content='Join the event' color='teal' onClick={currentuser?() => handlejoin():()=>setmodalopen(true)}></Button>
+                return <Button content='Join the event' color='teal' onClick={currentUser?() => handleJoin():()=>setmodalOpen(true)}></Button>
             }
         } else {
             return null;
@@ -49,22 +49,22 @@ export default function Detailheader(props) {
     }
     return (
         <>
-            {modalopen && <Anauthmodal setmodalopen={setmodalopen}/>}
+            {modalOpen && <AnauthModal setmodalOpen={setmodalOpen}/>}
         <Segment.Group>
             <Segment style={{position: "relative", padding: 0}}>
-                <Image src={`/assets/categoryImages/${selectedevent?.category}.jpg`} fluid/>
+                <Image src={`/assets/categoryImages/${selectedEvent?.category}.jpg`} fluid/>
                 <Segment basic style={{
                     position: "absolute",
                     left: 0, bottom: 0, color: "white"
                 }}>
                     <Item>
                         <Item.Header as='h2'>
-                            {selectedevent?.title}
+                            {selectedEvent?.title}
                         </Item.Header>
                         <Item.Content>
                             <Item.Extra>Hosted by
-                                <Link to={`/profile/${selectedevent.hostUid}`} style={{marginLeft:3}}>
-                                    {selectedevent?.hostname}
+                                <Link to={`/profile/${selectedEvent.hostUid}`} style={{marginLeft:3}}>
+                                    {selectedEvent?.hostname}
                                 </Link>
                             </Item.Extra>
                         </Item.Content>
@@ -72,10 +72,10 @@ export default function Detailheader(props) {
                 </Segment>
             </Segment>
             <Segment clearing>
-                {returnbuttons()}
+                {returnButtons()}
                 {
-                    selectedevent?.hostUid === currentuser?.uid ?
-                        <Button as={Link} to={`/manage/${selectedevent?.id}`} content='Manage the event' color='orange'
+                    selectedEvent?.hostUid === currentUser?.uid ?
+                        <Button as={Link} to={`/manage/${selectedEvent?.id}`} content='Manage the event' color='orange'
                                 floated='right'
                         /> : null
                 }

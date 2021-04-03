@@ -1,16 +1,26 @@
-import {ALREADY_FOLLOWING, ALREADY_UNFOLLOWING, SET_EVENTSTAB, SET_FOLLOWERS, SET_FOLLOWINGS, SET_PHOTOS, SET_PROFILE} from "./actiontype";
+import {
+    ALREADY_FOLLOWING,
+    ALREADY_UNFOLLOWING,
+    RESET_STATUS,
+    SET_EVENTSTAB,
+    SET_FOLLOWERS,
+    SET_FOLLOWINGS,
+    SET_PHOTOS,
+    SET_PROFILE
+} from "./actiontype";
 
-const defaultvalue = {
+const defaultValue = {
     photos: [],
-    eventstab: [],
+    eventsTab: [],
     profile: null,
-    followstatus: false,
+    followStatus: false,
     followings: [],
     followers: []
 }
 
-export const profilereducer = (state = defaultvalue, action) => {
+export const profileReducer = (state = defaultValue, action) => {
     switch (action.type) {
+
         case SET_PHOTOS:
             return {
                 ...state,
@@ -19,7 +29,7 @@ export const profilereducer = (state = defaultvalue, action) => {
         case SET_EVENTSTAB:
             return {
                 ...state,
-                eventstab: action.eventstab
+                eventsTab: action.eventstab
             }
         case SET_PROFILE:
             return {
@@ -29,12 +39,12 @@ export const profilereducer = (state = defaultvalue, action) => {
         case ALREADY_FOLLOWING:
             return {
                 ...state,
-                followstatus: true
+                followStatus: true
             }
         case ALREADY_UNFOLLOWING:
             return {
                 ...state,
-                followstatus: false
+                followStatus: false
             }
         case SET_FOLLOWINGS:
             return {
@@ -46,6 +56,13 @@ export const profilereducer = (state = defaultvalue, action) => {
                 ...state,
                 followers: action.data
             }
+        case RESET_STATUS:{
+            return {
+                ...state,
+                followStatus: false
+            }
+        }
+
     }
 
     return state;

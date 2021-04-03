@@ -1,18 +1,18 @@
 import React from 'react';
 import {Modal} from "semantic-ui-react";
 import {useSelector, useDispatch} from "react-redux";
-import {closemodal} from "./store/actioncreator";
+import {closeModal} from "./store/actioncreator";
 
 export default function ModalWrap(props) {
     const {header, size, children} = props;
     const dispatch = useDispatch()
-    const {openmodal} = useSelector(state => state.login)
+    const {openModal} = useSelector(state => state.login)
     return (
         <Modal
             size={size}
-            open={openmodal}
-            onClose={() => dispatch(closemodal())}
-            onOpen={() => dispatch(openmodal())}
+            open={openModal}
+            onClose={() => dispatch(closeModal())}
+            onOpen={() => dispatch(openModal())}
         >
             <Modal.Header>{header}</Modal.Header>
             <Modal.Content>

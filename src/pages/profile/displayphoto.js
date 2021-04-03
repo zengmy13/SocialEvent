@@ -1,65 +1,66 @@
 import React, {useState} from 'react';
 import {Button, Grid, Header, Tab, Card, Image} from "semantic-ui-react";
-import Phototab from "./photo";
+import PhotoTab from "./photo";
 import {deletephoto, deletephotoinstorage, getphotosfromstorage, setmainphoto} from "../../firebase/fromfirebase";
 import {Usedocshook} from "../../hook/firestorehook";
 import {useDispatch, useSelector} from "react-redux";
-import {setphotos} from "./store/actioncreator";
+import {setPhotos} from "./store/actioncreator";
 import {toast} from "react-toastify";
 
-export default function Displayphoto(props) {
-    const [edit, setedit] = useState(false);
-    const {profile,currentuser}=props;
+export default function DisplayPhoto(props) {
+    const [edit, setEdit] = useState(false);
+    const {profile,currentUser}=props;
     const dispatch = useDispatch();
     const {photos} = useSelector(state => state.profile);
-    const [loading, setloading] = useState({
+    const [loading, setLoading] = useState({
         loading: false,
         target: null
     })
-    const [mainloading, setmainloading] = useState({
+    const [mainloading, setMainloading] = useState({
         loading: false,
         target: null
     })
     Usedocshook({
         query: getphotosfromstorage(profile?.id),
-        data: (data) => dispatch(setphotos(data)),
+        data: (data) => dispatch(setPhotos(data)),
         deps: [dispatch]
     })
 
-    async function handledelete(id, name) {
+    async function handleDelete(id, name) {
         try {
-            setloading({
+            setLoading({
                 loading: true,
                 target: id
             })
             await deletephoto(id);
             await deletephotoinstorage(name)
-            setloading({
+            setLoading({
                 loading: false,
                 target: null
             })
         } catch (error) {
-            setloading({
+            setLoading({
                 loading: false,
                 target: null
             })
             toast.error(error.message)
         }
     }
-   async function handlesetmainphoto(item){
+   async function handleSetMainPhoto(item){
        try{
-           setmainloading({
+           setMainloading({
                loading: true,
                target: item?.id
            })
           await setmainphoto(item)
-           setmainloading({
+           setMainloading({
                loading: false,
                target: null
            })
+           window.location.reload();
 
        }catch(error){
-           setmainloading({
+           setMainloading({
                loading: false,
                target: null
            })
@@ -73,14 +74,14 @@ export default function Displayphoto(props) {
                 <Grid.Column width={16} clearing>
                     <Header floated='left' size='small' icon='user' content='Photos'/>
                     {
-                        currentuser?.uid===profile?.id
-                            ? <Button floated='right' basic onClick={() => setedit(!edit)}>{edit ? "Cancel" : "Edit"}</Button>
+                        currentUser?.uid===profile?.id
+                            ? <Button floated='right' basic onClick={() => setEdit(!edit)}>{edit ? "Cancel" : "Edit"}</Button>
                             :null
                     }
 
                 </Grid.Column>
                 {
-                    edit ? <Phototab/> : <Grid.Column width={16}>
+                    edit ? <PhotoTab/> : <Grid.Column width={16}>
                         <Card.Group itemsPerRow={5} stackable>
                             {
                                 photos.map((item, index) => {
@@ -92,13 +93,13 @@ export default function Displayphoto(props) {
                                                         style={{padding: 4}}
                                                         name={item.id}
                                                         loading={loading.target == item.id && loading.loading}
-                                                        onClick={()=>handlesetmainphoto(item)}
+                                                        onClick={()=>handleSetMainPhoto(item)}
                                                 ></Button>
                                                 <Button content='Delete' color='red'
                                                         name={item.id}
                                                         style={{padding: 4}}
                                                         loading={loading.target == item.id && loading.loading}
-                                                        onClick={() => handledelete(item.id,item.name)}></Button>
+                                                        onClick={() => handleDelete(item.id,item.name)}></Button>
                                             </Button.Group>
                                         </Card.Content>
                                     </Card>

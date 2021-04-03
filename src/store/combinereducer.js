@@ -1,18 +1,18 @@
 import React from 'react';
 import {combineReducers} from "redux";
 import {connectRouter} from "connected-react-router";
-import {asynreducer} from "./asyn/reducer";
-import {eventreducer} from "../pages/mainpage/events/store/reducer";
-import {detailreducer} from "../pages/detail/store/reducer";
-import {loginreducer} from "../components/login/store/reducer";
-import {profilereducer} from "../pages/profile/store/reducer";
+import {asynReducer} from "./asyn/reducer";
+import {eventReducer} from "../pages/mainpage/events/store/reducer";
+import {detailReducer} from "../pages/detail/store/reducer";
+import {loginReducer} from "../components/login/store/reducer";
+import {profileReducer} from "../pages/profile/store/reducer";
 
 
 export const reducer =(history)=> combineReducers({
     router: connectRouter(history),
-    asyn: asynreducer,
-    event: eventreducer,
-    detail: detailreducer,
-    login: loginreducer,
-    profile: profilereducer
+    asyn: asynReducer,
+    event: eventReducer,
+    detail: detailReducer,
+    login: loginReducer,
+    profile: profileReducer
 })

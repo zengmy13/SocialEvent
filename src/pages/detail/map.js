@@ -7,10 +7,10 @@ function Marker() {
 }
 
 export default function Map(props) {
-    const {selectedevent} = props;
+    const {selectedEvent} = props;
     const center = {
-        lat: selectedevent.city.latLng.lat,
-        lng: selectedevent.city.latLng.lng
+        lat: selectedEvent.city.latLng.lat,
+        lng: selectedEvent.city.latLng.lng
     }
     return (
         <Fragment>

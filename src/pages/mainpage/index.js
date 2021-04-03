@@ -1,34 +1,34 @@
 import React,{useEffect,useState} from 'react';
-import {Container, Grid,Button,Loader} from "semantic-ui-react";
-import Eventlist from "./events/eventlist";
+import {Container, Grid,Loader} from "semantic-ui-react";
+import EventList from "./events/eventlist";
 import './main.css';
 import {useDispatch, useSelector} from "react-redux";
-import {clearevents, fetchdata} from "./events/store/actioncreators";
-import Eventfilter from "./events/eventfilter";
-import Placeholderimage from "./events/eventsplaceholder";
+import {clearEvents, fetchData} from "./events/store/actioncreators";
+import EventFilter from "./events/eventfilter";
+import PlaceholderImage from "./events/eventsplaceholder";
 
 
-export default function Mainpage(props) {
+export default function MainPage(props) {
     const dispatch = useDispatch();
     const {loading} = useSelector(state => state.asyn);
-    const [loadinginitial,setloadinginitial]=useState(false);
-    const {events,filter,startdate,moreevents} = useSelector(state => state.event);
-    const [last,setlast]=useState(null)
-    const limit=3;
+    const [loadingInitial,setloadingInitial]=useState(false);
+    const {events,filter,startDate,moreEvents} = useSelector(state => state.event);
+    const [last,setLast]=useState(null)
+    const limit=6;
     useEffect(()=>{
-        dispatch(clearevents())
-        setloadinginitial(true)
-        dispatch(fetchdata(filter,startdate,limit,null)).then((last)=>{
-           setlast(last);
-           setloadinginitial(false)
+        dispatch(clearEvents())
+        setloadingInitial(true)
+        dispatch(fetchData(filter,startDate,limit,null)).then((last)=>{
+           setLast(last);
+           setloadingInitial(false)
        })
-        return ()=>dispatch(clearevents());
-   },[dispatch,filter,startdate])
+        return ()=>dispatch(clearEvents());
+   },[dispatch,filter,startDate])
 
-    function loadmore(){
-       if(!moreevents) return;
-        dispatch(fetchdata(filter,startdate,limit,last)).then((last)=>{
-            setlast(last)
+    function loadMore(){
+       if(!moreEvents) return;
+        dispatch(fetchData(filter,startDate,limit,last)).then((last)=>{
+            setLast(last)
         })
     }
     return (
@@ -36,16 +36,16 @@ export default function Mainpage(props) {
             <Container className='main' attached='bottom'>
                 <Grid stackable>
                     <Grid.Column width={10}>
-                        {loadinginitial ? <Placeholderimage/> :
-                            <Eventlist events={events}
-                                       loadmore={loadmore}
+                        {loadingInitial ? <PlaceholderImage/> :
+                            <EventList events={events}
+                                       loadmore={loadMore}
                                        loading={loading}
-                                       moreevents={moreevents}
+                                       moreevents={moreEvents}
                             />
                         }
                     </Grid.Column>
                     <Grid.Column width={6}>
-                        <Eventfilter/>
+                        <EventFilter/>
                     </Grid.Column>
                     <Grid.Column width={10}>
                         <Loader active={loading}/>

@@ -2,7 +2,7 @@ import React from 'react';
 import {Placeholder, Segment, Button} from "semantic-ui-react";
 
 
-export default function Placeholderimage() {
+export default function PlaceholderImage() {
     return (
         <>
             <Segment.Group>

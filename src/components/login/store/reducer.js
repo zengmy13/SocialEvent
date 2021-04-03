@@ -1,36 +1,36 @@
 import {CLEAR_CURRENT_USER, CLOSE_MODAL, OPEN_MODAL, SET_CURRENT_USER, UPDATE_USER_INFO} from "./actiontype";
 import {LOCATION_CHANGE} from "connected-react-router";
 
-const defaultvalue = {
+const defaultValue = {
     modalType: null,
-    currentuser: null,
-    openmodal: false,
-    prevlocation:null,
-    currentlocation:null
+    currentUser: null,
+    openModal: false,
+    prevLocation:null,
+    currentLocation:null
 }
 
-export const loginreducer = (state = defaultvalue, action) => {
+export const loginReducer = (state = defaultValue, action) => {
     switch (action.type) {
         case OPEN_MODAL:
             return {
                 ...state,
-                openmodal: true,
+                openModal: true,
                 modalType: action.modalType
             }
         case CLOSE_MODAL:
             return {
                 ...state,
-                openmodal: false
+                openModal: false
             }
         case CLEAR_CURRENT_USER:
             return {
                 ...state,
-                currentuser: null
+                currentUser: null
             }
         case SET_CURRENT_USER:
             return {
                 ...state,
-                currentuser: {
+                currentUser: {
                     displayName: action.user.displayName,
                     email: action.user.email,
                     photoURL: action.user.photoURL,
@@ -42,16 +42,16 @@ export const loginreducer = (state = defaultvalue, action) => {
         case UPDATE_USER_INFO:
             return {
                 ...state,
-                currentuser: {
-                    ...state.currentuser,
+                currentUser: {
+                    ...state.currentUser,
                     ...action.values
                 }
             }
         case LOCATION_CHANGE:
         return {
             ...state,
-            prevlocation:state.currentlocation,
-            currentlocation:action.payload.location
+            prevLocation:state.currentLocation,
+            currentLocation:action.payload.location
         }
     }
     return state;

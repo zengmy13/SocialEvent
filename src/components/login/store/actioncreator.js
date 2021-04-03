@@ -2,32 +2,32 @@ import {CLEAR_CURRENT_USER, CLOSE_MODAL, OPEN_MODAL, SET_CURRENT_USER, UPDATE_US
 import firebase from '../../../config/firebase';
 import {APP_LOADED} from "../../../store/asyn/actiontype";
 
-export const openmodal = (modalType) => {
+export const openModal = (modalType) => {
     return {
         type: OPEN_MODAL,
         modalType
     }
 }
-export const closemodal = () => {
+export const closeModal = () => {
     return {
         type: CLOSE_MODAL
     }
 }
-export const clearcurrentuser = () => {
+export const clearCurrentUser = () => {
     return {
         type: CLEAR_CURRENT_USER
     }
 }
-export const verifyauth = () => {
+export const verifyAuth = () => {
     return (dispatch) => {
         return firebase.auth().onAuthStateChanged(user => {
             if (user) {
-                dispatch(setcurrentuser(user));
+                dispatch(setCurrentUser(user));
                 dispatch({
                     type:APP_LOADED
                 })
             } else {
-                dispatch(clearcurrentuser())
+                dispatch(clearCurrentUser())
                 dispatch({
                     type:APP_LOADED
                 })
@@ -35,13 +35,13 @@ export const verifyauth = () => {
         })
     }
 }
-export const setcurrentuser = (user) => {
+export const setCurrentUser = (user) => {
     return {
         type: SET_CURRENT_USER,
         user
     }
 }
-export const updateuser = (values) => {
+export const updateUser = (values) => {
     return {
         type: UPDATE_USER_INFO,
         values

@@ -4,8 +4,8 @@ import * as Yup from 'yup';
 import {addcommenttofirebase} from "../../firebase/fromfirebase";
 
 
-export default function Chartform(props) {
-    const {id, parentId, closeform} = props;
+export default function ChartForm(props) {
+    const {id, parentId, closeForm} = props;
     const initialValues = {
         comment: ""
     }
@@ -21,7 +21,7 @@ export default function Chartform(props) {
                         await addcommenttofirebase(id, values, parentId)
                         resetForm();
                         setSubmitting(false);
-                        closeform();
+                        closeForm();
                     } catch (error) {
                         setSubmitting(false)
                     }

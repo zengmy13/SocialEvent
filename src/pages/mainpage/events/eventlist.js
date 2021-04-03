@@ -1,20 +1,20 @@
 import React from 'react';
-import Eventlistitem from "./eventlistitem";
+import EventListItem from "./eventlistitem";
 import InfiniteScroll from 'react-infinite-scroller';
 
 
-export default function Eventlist(props) {
-    const {events, loadmore, loading,moreevents} = props;
+export default function EventList(props) {
+    const {events, loadMore, loading,moreEvents} = props;
     return (
         events.length!==0 && (
               <InfiniteScroll
                   pageStart={0}
-                  loadMore={loadmore}
-                  hasMore={!loading && moreevents}
+                  loadMore={loadMore}
+                  hasMore={!loading && moreEvents}
                   initialLoad={false}>
                   {
                       events.map((event, index) => {
-                          return <Eventlistitem key={event.id} event={event}/>
+                          return <EventListItem key={event.id} event={event}/>
                       })
                   }
               </InfiniteScroll>

@@ -13,38 +13,38 @@ import {Confirm} from "semantic-ui-react";
 import {addneweventtofirestore, deleteeventfromfirestore, getspecificeventfromfirestore, updateselectedevent} from "../../../firebase/fromfirebase";
 import {useDispatch, useSelector} from "react-redux";
 import {Usesingaldochook} from "../../../hook/firestorehook";
-import {clearselectedevent, getselectevent} from "../../detail/store/actioncreators";
+import {clearSelectedEvent, getSelectEvent} from "../../detail/store/actioncreators";
 import PlaceInput from "../../../common/placeInput";
-import Loadingpage from "../../loading";
+import LoadingPage from "../../loading";
 import {toast} from "react-toastify";
 
 
-export default function Eventform(props) {
+export default function EventForm(props) {
     const history = useHistory();
-    const {selectedid} = props;
+    const {selectedId} = props;
     const location=useLocation();
     const dispatch = useDispatch();
-    const {selectedevent} = useSelector(state => state.detail)
-    const [confirmopen, setconfirmopen] = useState(false);
-    const [confirmloading, setconfirmloading] = useState(false);
+    const {selectedEvent} = useSelector(state => state.detail)
+    const [confirmOpen, setConfirmOpen] = useState(false);
+    const [confirmLoading, setConfirmLoading] = useState(false);
     const {loading,error}=useSelector(state=>state.asyn);
 
     useEffect(()=>{
         if(location.pathname!=="/create") return;
-        dispatch(clearselectedevent());
+        dispatch(clearSelectedEvent());
     },[location.pathname,dispatch]);
 
     Usesingaldochook({
-        shouldexecute: selectedid!==selectedevent?.id && location.pathname!=='/create',
-        query: getspecificeventfromfirestore(selectedid),
-        data: (data) => dispatch(getselectevent(data)),
-        deps: [dispatch, selectedid]
+        shouldExecute: selectedId!==selectedEvent?.id && location.pathname!=='/create',
+        query: getspecificeventfromfirestore(selectedId),
+        data: (data) => dispatch(getSelectEvent(data)),
+        deps: [dispatch, selectedId]
     })
-    if(loading) return <Loadingpage/>;
+    if(loading) return <LoadingPage/>;
     if(error) {
         return <Redirect to='/events'></Redirect>
     }
-    const initialvalues = selectedevent || {
+    const initialValues = selectedEvent || {
         title: '',
         description: "",
         date: "",
@@ -71,27 +71,27 @@ export default function Eventform(props) {
         category: Yup.string().required()
     })
 
-    async function handleconfirm(selectedevent) {
+    async function handleConfirm(selectedEvent) {
         try {
-            setconfirmopen(false);
-            setconfirmloading(true);
-            await deleteeventfromfirestore(selectedevent);
-            setconfirmloading(false);
+            setConfirmOpen(false);
+            setConfirmLoading(true);
+            await deleteeventfromfirestore(selectedEvent);
+            setConfirmLoading(false);
         } catch (error) {
             toast.error(error.message)
-            setconfirmopen(false);
-            setconfirmloading(false);
+            setConfirmOpen(false);
+            setConfirmLoading(false);
         }
-        setconfirmopen(false);
+        setConfirmOpen(false);
     }
 
     return (
         <Segment clearing>
             <Formik
                 enableReinitialize
-                initialValues={initialvalues} onSubmit={async (values, {setSubmitting}) => {
+                initialValues={initialValues} onSubmit={async (values, {setSubmitting}) => {
                 try {
-                    selectedevent ? updateselectedevent(values)
+                    selectedEvent ? updateselectedevent(values)
                         : await addneweventtofirestore(values)
                     setSubmitting(false);
                     history.push("/events");
@@ -102,7 +102,7 @@ export default function Eventform(props) {
                 {
                     ({dirty, isSubmitting, isValid, values}) => (
                         <Form className='ui form' clearing>
-                            <Header content={selectedevent ? selectedevent.title : "Create events"}></Header>
+                            <Header content={selectedEvent ? selectedEvent.title : "Create events"}></Header>
                             <TextInput name='title' placeholder='title'/>
                             <SelectInput name='category' placeholder='category'/>
                             <TextArea name='description' placeholder='description' rows={3}/>
@@ -118,14 +118,14 @@ export default function Eventform(props) {
                             <Grid stackable>
                                 <Grid.Column width={8}>
                                     {
-                                        selectedevent && <Button
+                                        selectedEvent && <Button
                                             size='small'
-                                            loading={confirmloading}
+                                            loading={confirmLoading}
                                             type='button'
                                             floated='left'
-                                            color={selectedevent?.isCancel ? "orange" : "red"}
-                                            content={selectedevent?.isCancel ? "Reorganize the event" : "Cancel the event"}
-                                            onClick={() => setconfirmopen(true)}/>
+                                            color={selectedEvent?.isCancel ? "orange" : "red"}
+                                            content={selectedEvent?.isCancel ? "Reorganize the event" : "Cancel the event"}
+                                            onClick={() => setConfirmOpen(true)}/>
                                     }
                                 </Grid.Column>
                                 <Grid.Column width={8} textAlign='center'>
@@ -146,10 +146,10 @@ export default function Eventform(props) {
                 }
             </Formik>
             <Confirm
-                open={confirmopen}
-                onCancel={() => setconfirmopen(false)}
-                content={selectedevent?.isCancel ?  "Are you sure to reorganize":"Are you sure to cancel"}
-                onConfirm={() => handleconfirm(selectedevent)}/>
+                open={confirmOpen}
+                onCancel={() => setConfirmOpen(false)}
+                content={selectedEvent?.isCancel ?  "Are you sure to reorganize":"Are you sure to cancel"}
+                onConfirm={() => handleConfirm(selectedEvent)}/>
         </Segment>
     )
 }

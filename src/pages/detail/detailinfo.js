@@ -5,9 +5,9 @@ import Map from "./map";
 import {format} from 'date-fns';
 
 
-export default function Detailiteminfo(props) {
-    const {selectedevent} = props;
-    const [openmap, setopenmap] = useState(false);
+export default function DetailItemInfo(props) {
+    const {selectedEvent} = props;
+    const [openMap, setopenMap] = useState(false);
     return (
         <Segment.Group>
             <Segment>
@@ -16,7 +16,7 @@ export default function Detailiteminfo(props) {
                         <Icon name='info' color='teal'></Icon>
                     </Grid.Column>
                     <Grid.Column width={14}>
-                        {selectedevent?.description}
+                        {selectedEvent?.description}
                     </Grid.Column>
                 </Grid>
             </Segment>
@@ -26,7 +26,7 @@ export default function Detailiteminfo(props) {
                         <Icon name='calendar' color='teal'></Icon>
                     </Grid.Column>
                     <Grid.Column width={14}>
-                        {selectedevent?.date && format(selectedevent?.date, "dd/MM/yyyy HH:mm a")}
+                        {selectedEvent?.date && format(selectedEvent?.date, "dd/MM/yyyy HH:mm a")}
                     </Grid.Column>
                 </Grid>
             </Segment>
@@ -36,22 +36,22 @@ export default function Detailiteminfo(props) {
                         <Icon name='marker' color='teal'></Icon>
                     </Grid.Column>
                     <Grid.Column width={7}>
-                        {`${selectedevent?.city.address}/${selectedevent?.venue.address}`}
+                        {`${selectedEvent?.city.address}/${selectedEvent?.venue.address}`}
                     </Grid.Column>
                     <Grid.Column width={7} verticalAlign='middle'>
-                        <Button color='teal' onClick={() => setopenmap(!openmap)}
+                        <Button color='teal' onClick={() => setopenMap(!openMap)}
                                 size='small'
-                                disabled={selectedevent?.isCancel === true} floated='right'>
-                            {openmap ? "Close map" : "Open map"}
+                                disabled={selectedEvent?.isCancel === true} floated='right'>
+                            {openMap ? "Close map" : "Open map"}
                         </Button>
                     </Grid.Column>
                 </Grid>
             </Segment>
             {
-                openmap && <Segment>
+                openMap && <Segment>
                     <Grid>
                         <Grid.Column width={16}>
-                            <Map selectedevent={selectedevent}/>
+                            <Map selectedEvent={selectedEvent}/>
                         </Grid.Column>
                     </Grid>
                 </Segment>

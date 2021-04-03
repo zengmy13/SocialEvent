@@ -1,17 +1,17 @@
 import React from "react";
 import {useSelector} from "react-redux";
-import Signinform from "./signform";
-import Registerform from "./registerform";
+import SignInForm from "./signform";
+import RegisterForm from "./registerform";
 
-export default function Modalmanage() {
+export default function ModalManage() {
     const {modalType} = useSelector(state => state.login);
-    let finalmodal;
+    let finalModal;
     if (modalType && modalType === "Login") {
-        finalmodal = <Signinform/>
+        finalModal = <SignInForm/>
     } else if (modalType && modalType === "Register") {
-        finalmodal = <Registerform/>
+        finalModal = <RegisterForm/>
     }
     return (
-        <span>{finalmodal}</span>
+        <span>{finalModal}</span>
     )
 }

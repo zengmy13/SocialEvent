@@ -2,17 +2,17 @@ import {CHANGE_DATE, CHANGE_FILTER, CLEAR_EVENTS, GET_EVENTS, GET_FEEDS, SET_MES
 import {aynscserror, aynscsfinish, aynscstart} from "../../../../store/asyn/actioncreators";
 import {dealwithdata, geteventsfromfirestore} from "../../../../firebase/fromfirebase";
 
-export  function fetchdata(filter, startdate,limit,last){
+export  function fetchData(filter, startDate,limit,last){
     return async (dispatch)=>{
         dispatch(aynscstart());
         try{
-            const result= await geteventsfromfirestore(filter,startdate,limit,last).get();
-            const lastvisible=result.docs[result.docs.length-1];
-            const moreevents=result.docs.length>=limit;
+            const result= await geteventsfromfirestore(filter,startDate,limit,last).get();
+            const lastVisible=result.docs[result.docs.length-1];
+            const moreEvents=result.docs.length>=limit;
             const events=result.docs.map(item=>dealwithdata(item));
-            dispatch(getevents(events,moreevents))
+            dispatch(getEvents(events,moreEvents))
             dispatch(aynscsfinish());
-            return lastvisible;
+            return lastVisible;
         }catch(error){
             dispatch(aynscserror(error))
         }
@@ -20,36 +20,36 @@ export  function fetchdata(filter, startdate,limit,last){
     }
 }
 
-export const getevents = (events,moreevents) => {
+export const getEvents = (events,moreEvents) => {
     return {
         type: GET_EVENTS,
         events,
-        moreevents
+        moreEvents
     }
 }
 
-export const changefilter = (filter) => {
+export const changeFilter = (filter) => {
     return {
         type: CHANGE_FILTER,
         filter
     }
 }
 
-export const changetime = (date) => {
+export const changeTime = (date) => {
     return {
         type: CHANGE_DATE,
         date
     }
 }
 
-export const getfeeds = (feed) => {
+export const getFeeds = (feed) => {
     return {
         type: GET_FEEDS,
         feed
     }
 }
 
-export const clearevents=()=>{
+export const clearEvents=()=>{
     return {
         type:CLEAR_EVENTS
     }

@@ -3,7 +3,7 @@ import {Segment, Header, Button} from "semantic-ui-react";
 import {useSelector} from "react-redux";
 import {Link} from 'react-router-dom';
 
-export default function Errorpage() {
+export default function ErrorPage() {
     const {error} = useSelector(state => state.asyn);
     return (
         <Segment placeholder>

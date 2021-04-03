@@ -2,15 +2,15 @@ import React, {useRef} from "react";
 import Cropper from "react-cropper";
 import "cropperjs/dist/cropper.css";
 
-export default function Cropperbox(props) {
+export default function CropperBox(props) {
     const {file} = props;
-    const {setimage} = props;
+    const {setImage} = props;
     const cropperRef = useRef(null);
     const onCrop = () => {
         const imageElement = cropperRef?.current;
         const cropper = imageElement?.cropper;
         cropper.getCroppedCanvas().toBlob(item => {
-            setimage(item)
+            setImage(item)
         })
     }
     return (

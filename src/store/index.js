@@ -1,6 +1,6 @@
 import {createStore, applyMiddleware, compose} from "redux";
 import thunk from 'redux-thunk';
-import {verifyauth} from "../components/login/store/actioncreator";
+import {verifyAuth} from "../components/login/store/actioncreator";
 import { createBrowserHistory } from 'history';
 import { routerMiddleware } from 'connected-react-router'
 import {reducer} from "./combinereducer";
@@ -12,7 +12,7 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(reducer(history), composeEnhancers(
     applyMiddleware( routerMiddleware(history),thunk)
 ));
-store.dispatch(verifyauth())
+store.dispatch(verifyAuth())
 export default store;
 
 

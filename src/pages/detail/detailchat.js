@@ -1,53 +1,53 @@
 import React, {useEffect, useState} from 'react';
 import {Segment, Comment} from 'semantic-ui-react';
-import userpic from '../../assets/user.png'
-import Chartform from "./chatform";
+import userPic from '../../assets/user.png'
+import ChartForm from "./chatform";
 import {useDispatch, useSelector} from "react-redux"
 import {geteventcomment, makedatatree, toarray} from "../../firebase/fromfirebase";
-import {clearcomment, getnewcomment} from "./store/actioncreators";
+import {clearComment, getNewComment} from "./store/actioncreators";
 import {formatDistanceToNow} from 'date-fns';
 import {Link} from 'react-router-dom';
 
-export default function Detailchat(props) {
+export default function DetailChat(props) {
 
-    const {selectedeventid} = props;
+    const {selectedEventId} = props;
     const dispatch = useDispatch();
     const {comment} = useSelector(state => state.detail);
-    const {currentuser} = useSelector(state => state.login);
-    const [textareaopen, settextareaopen] = useState({
+    const {currentUser} = useSelector(state => state.login);
+    const [textareaOpen, settextareaOpen] = useState({
         open: false,
-        commentid: null
+        commentId: null
     });
-    const handleclosereplyform = () => {
-        settextareaopen({
+    const handleCloseReplyForm = () => {
+        settextareaOpen({
             open: false,
-            commentid: null
+            commentId: null
         })
     }
     useEffect(() => {
-        geteventcomment(selectedeventid).on("value", snapshot => {
+        geteventcomment(selectedEventId).on("value", snapshot => {
                 if (!snapshot.exists()) {
                     return;
                 } else {
-                    dispatch(getnewcomment((toarray(snapshot.val()))))
+                    dispatch(getNewComment((toarray(snapshot.val()))))
                 }
             }
         )
-        return () => dispatch(clearcomment())
-    }, [selectedeventid, dispatch])
+        return () => dispatch(clearComment())
+    }, [selectedEventId, dispatch])
 
     return (
         <Segment.Group>
             <Segment color='teal' textAlign='center'
-                     inverted>{currentuser ? "Chat about event" : "Sign in to view and comment"}</Segment>
-            {currentuser && <Segment>
-                <Chartform id={selectedeventid} parentId={0}/>
+                     inverted>{currentUser ? "Chat about event" : "Sign in to view and comment"}</Segment>
+            {currentUser && <Segment>
+                <ChartForm id={selectedEventId} parentId={0}/>
                 <Comment.Group>
                     {
                         comment && makedatatree(comment).map((comment, index) => {
                             return <Comment key={comment.id}>
                                 <Comment.Avatar as={Link} to={`/profile/${comment.commenterId}`}
-                                                src={comment.photoURL || userpic} size='small'/>
+                                                src={comment.photoURL || userPic} size='small'/>
                                 <Comment.Content>
                                     <Comment.Author as='a'>
                                         {comment.displayName}
@@ -64,19 +64,19 @@ export default function Detailchat(props) {
                                     </Comment.Text>
                                     <Comment.Actions>
                                         <Comment.Action onClick={() => {
-                                            settextareaopen({
+                                            settextareaOpen({
                                                 open: true,
-                                                commentid: comment.id
+                                                commentId: comment.id
                                             })
                                         }}>
                                             Reply
                                         </Comment.Action>
                                         {
-                                            textareaopen.open &&
-                                            textareaopen.commentid === comment.id
-                                                ? <Chartform closeform={handleclosereplyform}
+                                            textareaOpen.open &&
+                                            textareaOpen.commentid === comment.id
+                                                ? <ChartForm closeform={handleCloseReplyForm}
                                                              parentId={comment.id}
-                                                             id={selectedeventid}/>
+                                                             id={selectedEventId}/>
                                                 : null
                                         }
                                     </Comment.Actions>
@@ -103,17 +103,17 @@ export default function Detailchat(props) {
                                                     </Comment.Text>
                                                     <Comment.Actions>
                                                         <Comment.Action onClick={() => {
-                                                            settextareaopen({
+                                                            settextareaOpen({
                                                                 open: true,
-                                                                commentid: child.id
+                                                                commentId: child.id
                                                             })
                                                         }}>Reply</Comment.Action>
                                                         {
-                                                            textareaopen.open &&
-                                                            textareaopen.commentid === child.id
-                                                                ? <Chartform closeform={handleclosereplyform}
+                                                            textareaOpen.open &&
+                                                            textareaOpen.commentId === child.id
+                                                                ? <ChartForm closeform={handleCloseReplyForm}
                                                                              parentId={child.id}
-                                                                             id={selectedeventid}/>
+                                                                             id={selectedEventId}/>
                                                                 : null
                                                         }
                                                     </Comment.Actions>

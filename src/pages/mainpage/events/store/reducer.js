@@ -1,20 +1,20 @@
 import {CHANGE_DATE, CHANGE_FILTER, CLEAR_EVENTS, GET_EVENTS, GET_FEEDS, SET_MESSAGE} from "./actiontype";
 
-const defaultvalue = {
+const defaultValue = {
     events: [],
     filter: "all",
-    startdate: new Date(),
+    startDate: new Date(),
     feed: [],
-    moreevents:true,
+    moreEvents:true,
 }
 
-export const eventreducer = (state = defaultvalue, action) => {
+export const eventReducer = (state = defaultValue, action) => {
     switch (action.type) {
         case GET_EVENTS:
             return {
                 ...state,
                 events: [...state.events,...action.events],
-                moreevents: action.moreevents
+                moreEvents: action.moreevents
             }
         case CHANGE_FILTER:
             return {
@@ -24,7 +24,7 @@ export const eventreducer = (state = defaultvalue, action) => {
         case CHANGE_DATE:
             return {
                 ...state,
-                startdate: action.date
+                startDate: action.date
             }
         case GET_FEEDS:
             return {
@@ -35,7 +35,7 @@ export const eventreducer = (state = defaultvalue, action) => {
             return {
                 ...state,
                 events:[],
-                moreevents: true
+                moreEvents: true
             }
     }
     return state;

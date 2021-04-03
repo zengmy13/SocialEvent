@@ -1,20 +1,20 @@
 import React from 'react';
 import {Button, Menu} from "semantic-ui-react";
 import {useDispatch} from "react-redux";
-import {openmodal} from "../login/store/actioncreator";
+import {openModal} from "../login/store/actioncreator";
 
-export default function Signin() {
+export default function SignIn() {
     const dispatch = useDispatch()
     return (
         <>
             <Menu.Item position='right'>
                 <Button content='Log in' basic size='small' inverted
-                        onClick={() => dispatch(openmodal("Login"))}
+                        onClick={() => dispatch(openModal("Login"))}
                 ></Button>
             </Menu.Item>
             <Menu.Item>
                 <Button content='Register' basic size='small' inverted
-                        onClick={() => dispatch(openmodal("Register"))}
+                        onClick={() => dispatch(openModal("Register"))}
                 ></Button>
             </Menu.Item>
         </>

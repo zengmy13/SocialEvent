@@ -1,11 +1,11 @@
 import React from 'react';
 import {Segment, Item, Button, List, Icon, Label} from "semantic-ui-react";
-import userlogo from '../../../assets/user.png';
+import userLogo from '../../../assets/user.png';
 import Attendees from "./attendees";
 import {format} from 'date-fns';
 import {Link} from 'react-router-dom';
 
-export default function Eventlistitem(props) {
+export default function EventListItem(props) {
     const {event} = props;
     return (
         <>
@@ -19,7 +19,7 @@ export default function Eventlistitem(props) {
                         }
                         <Item style={{position:"relative"}}>
                             <Item.Image as={Link} to={`/profile/${event.hostUid}`} size='tiny' avatar
-                                        src={event.hostURL || userlogo} circular>
+                                        src={event.hostURL || userLogo} circular>
                             </Item.Image>
                             <Item.Content>
                                 <Item.Header>{event.title}</Item.Header>

@@ -4,12 +4,12 @@ import {Formik, Form} from "formik";
 import * as Yup from 'yup';
 import TextInput from "../../common/textinput";
 import {changepassword} from "../../firebase/fromfirebase";
-import {Link, useHistory} from 'react-router-dom';
+import { useHistory} from 'react-router-dom';
 import {useSelector} from "react-redux";
 
-export default function Changepassword() {
+export default function ChangePassword() {
     const history = useHistory();
-    const {currentuser} = useSelector(state => state.login);
+    const {currentUser} = useSelector(state => state.login);
     const initialValues = {
         password: "",
         confirm: ""
@@ -26,7 +26,7 @@ export default function Changepassword() {
                         <Header as='h2' content='Account'></Header>
                         <Divider/>
                         {
-                            currentuser?.providerId === "google.com" &&
+                            currentUser?.providerId === "google.com" &&
                             <>
                                 <p>Please visit Google to change password</p>
                                 <Button color='google plus' as="a" href='http://google.com'>
@@ -36,7 +36,7 @@ export default function Changepassword() {
                             </>
                         }
                         {
-                            currentuser?.providerId === "facebook.com" &&
+                            currentUser?.providerId === "facebook.com" &&
                             <>
                                 <p>Please visit Facebook to change password</p>
                                 <Button color='facebook' as='a' href='http://facebook.com'>
@@ -46,7 +46,7 @@ export default function Changepassword() {
                             </>
                         }
                         {
-                            currentuser?.providerId === "password" &&
+                            currentUser?.providerId === "password" &&
                             <>
                                 <Header sub content='CHANGE PASSWORD' color='teal'></Header>
                                 <p>Please use the form to change password</p>

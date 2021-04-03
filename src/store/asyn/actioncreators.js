@@ -14,6 +14,7 @@ export const aynscsfinish = () => {
 
 export const aynscserror = (error) => {
     return {
-        type: ASYNC_ERROR
+        type: ASYNC_ERROR,
+        error:error
     }
 }

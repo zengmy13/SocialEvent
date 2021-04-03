@@ -3,54 +3,62 @@ import {Grid, Item, Statistic, Reveal, Button, Divider} from 'semantic-ui-react'
 import user from '../../assets/user.png';
 import {following, getiffollowing, unfollowing} from "../../firebase/fromfirebase";
 import {useDispatch, useSelector} from "react-redux";
-import {setfollowstatus, setunfollowstatus} from "./store/actioncreator";
+import {setFollowStatus, setUnfollowStatus} from "./store/actioncreator";
 import {toast} from "react-toastify";
+import {RESET_STATUS} from "./store/actiontype";
 
-export default function Profileheader(props) {
-    const {currentuser, profile} = props;
+export default function ProfileHeader(props) {
+    const {currentUser, profile,id} = props;
     const dispatch = useDispatch();
-    const [loading, setloading] = useState(false);
-    const {followstatus} = useSelector(state => state.profile);
+    const [loading, setLoading] = useState(false);
+    const {followStatus} = useSelector(state => state.profile);
+
     useEffect(() => {
-        setloading(true);
-        async function fetchfollowing() {
+
+        setLoading(true);
+        async function fetchFollowing() {
             try {
-                const result = await getiffollowing(profile?.id);
-                if (result.exists) {
-                    dispatch(setfollowstatus())
+
+                const result = await getiffollowing(id);
+                if (result && result.exists) {
+                    dispatch(setFollowStatus())
                 }
             } catch (error) {
                 toast.error(error.message)
-                setloading(false)
+                setLoading(false)
             }
         }
-
-        fetchfollowing().then((item) => {
-            setloading(false)
+        fetchFollowing().then((item) => {
+            setLoading(false)
         })
-    }, [dispatch, profile?.id, followstatus])
+        return ()=>{
+            dispatch({
+                type:RESET_STATUS
+            })
+        }
+    }, [profile?.id,dispatch])
 
-    async function handlefollowing(profile) {
+    async function handleFollowing(profile) {
         try {
-            setloading(true)
+            setLoading(true)
             await following(profile)
-            dispatch(setfollowstatus())
-            setloading(false)
+            dispatch(setFollowStatus())
+            setLoading(false)
         } catch (error) {
             toast.error(error.message)
-            setloading(false)
+            setLoading(false)
         }
     }
 
-    async function handleunfollowing(profile) {
+    async function handleUnfollowing(profile) {
         try {
-            setloading(true)
+            setLoading(true)
             await unfollowing(profile)
-            dispatch(setunfollowstatus())
-            setloading(false)
+            dispatch(setUnfollowStatus())
+            setLoading(false)
         } catch (error) {
             toast.error(error.message)
-            setloading(false)
+            setLoading(false)
         }
     }
 
@@ -77,17 +85,17 @@ export default function Profileheader(props) {
                 </Statistic.Group>
                 <Divider/>
                 {
-                    currentuser?.uid === profile?.id ? null :
+                    currentUser?.uid === profile?.id ? null :
                         <Reveal animated='move' style={{marginTop: "10px"}}>
                             <Reveal.Content visible style={{width: "100%"}}>
-                                <Button color='teal' fluid>{followstatus ? "Already follow" : "Not yet follow"}</Button>
+                                <Button color='teal' fluid>{followStatus ? "Already follow" : "Not yet follow"}</Button>
                             </Reveal.Content>
                             <Reveal.Content hidden>
                                 <Button
                                     loading={loading}
-                                    color={followstatus ? "red" : "green"} fluid
-                                    onClick={followstatus ? () => handleunfollowing(profile) : () => handlefollowing(profile)}>
-                                    {followstatus ? "Cancel follow" : "Go follow"}
+                                    color={followStatus ? "red" : "green"} fluid
+                                    onClick={followStatus ? () => handleUnfollowing(profile) : () => handleFollowing(profile)}>
+                                    {followStatus ? "Cancel follow" : "Go follow"}
                                 </Button>
                             </Reveal.Content>
                         </Reveal>

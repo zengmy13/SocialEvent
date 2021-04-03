@@ -6,11 +6,11 @@ import TextInput from "../../common/textinput";
 import * as Yup from 'yup';
 import {signinwithemailandpassword} from "../../firebase/fromfirebase";
 import {useDispatch} from "react-redux";
-import {closemodal} from "./store/actioncreator";
-import Sociallogin from "./sociallogin";
+import {closeModal} from "./store/actioncreator";
+import SocialLogin from "./sociallogin";
 
 
-export default function Signinform() {
+export default function SignInForm() {
     const dispatch = useDispatch()
     const validationSchema = Yup.object({
         email: Yup.string().required().email(),
@@ -25,7 +25,7 @@ export default function Signinform() {
             <Formik initialValues={initialValues} onSubmit={async (values, {setSubmitting, setErrors}) => {
                 try {
                     await signinwithemailandpassword(values);
-                    await dispatch(closemodal())
+                    await dispatch(closeModal())
                     setSubmitting(false);
                 } catch (error) {
                     setErrors({
@@ -54,7 +54,7 @@ export default function Signinform() {
                 }
             </Formik>
             <Divider horizontal>Or</Divider>
-            <Sociallogin/>
+            <SocialLogin/>
         </ModalWrap>
     )
 }

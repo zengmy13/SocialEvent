@@ -5,10 +5,10 @@ import {dealwithdata} from "../firebase/fromfirebase";
 
 export function Usedocshook(props) {
     const dispatch = useDispatch();
-    const {deps, data, query, shouldexecute = true} = props;
+    const {deps, data, query, shouldExecute = true} = props;
 
     useEffect(() => {
-        if (shouldexecute === false) {
+        if (shouldExecute === false) {
             return;
         }
         dispatch(aynscstart());
@@ -22,9 +22,9 @@ export function Usedocshook(props) {
 
 export function Usesingaldochook(props) {
     const dispatch = useDispatch();
-    const {deps, data, query, shouldexecute = true} = props;
+    const {deps, data, query, shouldExecute = true} = props;
     useEffect(() => {
-        if (shouldexecute == false) {
+        if (shouldExecute == false) {
             return;
         }
         dispatch(aynscstart());

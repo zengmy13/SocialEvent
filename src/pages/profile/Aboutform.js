@@ -6,15 +6,15 @@ import * as Yup from 'yup'
 import {Button} from "semantic-ui-react";
 import {updateuserinfo} from "../../firebase/fromfirebase";
 import {useDispatch} from "react-redux";
-import {updateuser} from "../../components/login/store/actioncreator";
+import {updateUser} from "../../components/login/store/actioncreator";
 import {toast} from "react-toastify";
 
-export default function Aboutform(props) {
-    const {currentuser,setedit} = props;
+export default function AboutForm(props) {
+    const {currentUser,setEdit} = props;
     const dispatch = useDispatch()
     const initialValues = {
-        displayName: currentuser?.displayName || "",
-        description: currentuser?.description || ""
+        displayName: currentUser?.displayName || "",
+        description: currentUser?.description || ""
     }
     const validationSchema = Yup.object({
         displayName: Yup.string().required()
@@ -24,9 +24,9 @@ export default function Aboutform(props) {
             try {
                 setSubmitting(true)
                 await updateuserinfo(values);
-                await dispatch(updateuser(values));
+                await dispatch(updateUser(values));
                 setSubmitting(false);
-                setedit(false);
+                setEdit(false);
             } catch (error) {
                 toast.error(error.message)
                 setSubmitting(false)

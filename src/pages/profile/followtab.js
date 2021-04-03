@@ -4,16 +4,16 @@ import {Usedocshook} from "../../hook/firestorehook";
 import user from '../../assets/user.png'
 import {getfolloweingprofile, getfollowersprofile} from "../../firebase/fromfirebase";
 import {useDispatch, useSelector} from "react-redux";
-import {followerprofile, followingprofile} from "./store/actioncreator";
+import {followerProfile, followingProfile} from "./store/actioncreator";
 import {Link} from 'react-router-dom';
 
-export default function Followtab(props) {
+export default function FollowTab(props) {
     const {activeIndex, profile} = props;
     const dispatch = useDispatch();
     const {followings, followers} = useSelector(state => state.profile)
     Usedocshook({
         query: activeIndex == 3 ? getfolloweingprofile(profile?.id) : getfollowersprofile(profile?.id),
-        data: (data) => activeIndex == 3 ? dispatch(followingprofile(data)) : dispatch(followerprofile(data)),
+        data: (data) => activeIndex == 3 ? dispatch(followingProfile(data)) : dispatch(followerProfile(data)),
         deps: [dispatch, activeIndex]
     })
     return <Tab.Pane>

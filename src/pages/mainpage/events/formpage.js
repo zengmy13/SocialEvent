@@ -1,16 +1,16 @@
 import React from 'react';
-import Eventform from "./eventform";
+import EventForm from "./eventform";
 import {Container, Grid} from "semantic-ui-react";
 
-export default function Formpage(props) {
+export default function FormPage(props) {
 
-    const {selectedid} = props.match.params;
+    const {selectedId} = props.match.params;
     return (
         <>
             <Container className='formcontainer'>
                 <Grid centered>
                     <Grid.Column width={10}>
-                        <Eventform selectedid={selectedid}/>
+                        <EventForm selectedId={selectedId}/>
                     </Grid.Column>
                 </Grid>
             </Container>

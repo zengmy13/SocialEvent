@@ -3,16 +3,16 @@ import {Segment, Icon, Header, Menu, Feed} from 'semantic-ui-react';
 import {Calendar} from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import {useSelector, useDispatch} from "react-redux";
-import {changefilter, changetime, getfeeds} from "./store/actioncreators";
+import {changeFilter, changeTime, getFeeds} from "./store/actioncreators";
 import img from '../../../assets/user.png'
 import {getfeedsfromdatabase, toarray} from "../../../firebase/fromfirebase";
 import {formatDistanceToNow} from 'date-fns';
 
-export default function Eventfilter(props) {
-    const {filter, startdate} = useSelector(state => state.event);
+export default function EventFilter(props) {
+    const {filter, startDate} = useSelector(state => state.event);
     const dispatch = useDispatch();
     const {feed} = useSelector(state => state.event);
-    const {currentuser}=useSelector(state=>state.login);
+    const {currentUser}=useSelector(state=>state.login);
 
     useEffect(() => {
         getfeedsfromdatabase().on("value", snapshot => {
@@ -20,13 +20,13 @@ export default function Eventfilter(props) {
                 return
             } else {
                 const feed = toarray(snapshot.val()).reverse()
-                dispatch(getfeeds(feed))
+                dispatch(getFeeds(feed))
             }
         })
     }, [dispatch])
 
     return (
-         currentuser &&
+         currentUser &&
         <Fragment>
             <Header color='teal' attached>
                 <Icon color='teal' name='newspaper'></Icon>
@@ -64,15 +64,15 @@ export default function Eventfilter(props) {
                     </Header>
                     <Menu.Item
                         active={filter == "all"}
-                        onClick={() => dispatch(changefilter("all"))}>
+                        onClick={() => dispatch(changeFilter("all"))}>
                         All events
                     </Menu.Item>
                     <Menu.Item active={filter == "going"}
-                               onClick={() => dispatch(changefilter("going"))}>
+                               onClick={() => dispatch(changeFilter("going"))}>
                         I'm going
                     </Menu.Item>
                     <Menu.Item active={filter == "hosting"}
-                               onClick={() => dispatch(changefilter("hosting"))}>
+                               onClick={() => dispatch(changeFilter("hosting"))}>
                         I'm hosting
                     </Menu.Item>
                 </Menu>
@@ -83,8 +83,8 @@ export default function Eventfilter(props) {
                 Choose date
             </Header>
             <Calendar
-                onChange={(date) => dispatch(changetime(date))}
-                value={new Date() || startdate}/>
+                onChange={(date) => dispatch(changeTime(date))}
+                value={new Date() || startDate}/>
         </Segment>
         </Fragment>
     )

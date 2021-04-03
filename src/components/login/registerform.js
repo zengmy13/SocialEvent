@@ -6,11 +6,11 @@ import TextInput from "../../common/textinput";
 import * as Yup from 'yup';
 import {createnewuserinfirebase} from "../../firebase/fromfirebase";
 import {useDispatch} from "react-redux";
-import {closemodal} from "./store/actioncreator";
-import Sociallogin from "./sociallogin";
+import {closeModal} from "./store/actioncreator";
+import SocialLogin from "./sociallogin";
 
 
-export default function Registerform() {
+export default function RegisterForm() {
     const dispatch = useDispatch()
     const validationSchema = Yup.object({
         displayName: Yup.string().required(),
@@ -28,8 +28,9 @@ export default function Registerform() {
                     onSubmit={async (values, {setSubmitting, setErrors}) => {
                         try {
                             await createnewuserinfirebase(values);
-                            await dispatch(closemodal())
+                            await dispatch(closeModal())
                             setSubmitting(false);
+                            window.location.reload();
                         } catch (error) {
                             setErrors({
                                 auth: "something wrong with Register"
@@ -40,7 +41,7 @@ export default function Registerform() {
                 {
                     ({isValid, isSubmitting, dirty, errors}) => (
                         <Form className='ui form'>
-                            <TextInput name='displayName' placeholder='name'/>
+                            <TextInput name='displayName' placeholder='displayName'/>
                             <TextInput name='email' placeholder='email'/>
                             <TextInput type='password' name='password' placeholder='password'/>
                             {errors.auth ? <Label color='red' pointing style={{
@@ -58,7 +59,7 @@ export default function Registerform() {
                 }
             </Formik>
             <Divider horizontal>Or</Divider>
-            <Sociallogin/>
+            <SocialLogin/>
         </ModalWrap>
     )
 }
