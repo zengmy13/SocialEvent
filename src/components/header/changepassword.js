@@ -3,11 +3,11 @@ import {Segment, Header, Button, Container, Grid, Label, Divider, Icon} from "se
 import {Formik, Form} from "formik";
 import * as Yup from 'yup';
 import TextInput from "../../common/textinput";
-import {changePassWord} from "../../firebase/fromfirebase";
+import {changepassword} from "../../firebase/fromfirebase";
 import {Link, useHistory} from 'react-router-dom';
 import {useSelector} from "react-redux";
 
-export default function ChangePassWord() {
+export default function Changepassword() {
     const history = useHistory();
     const {currentuser} = useSelector(state => state.login);
     const initialValues = {
@@ -53,7 +53,7 @@ export default function ChangePassWord() {
                                 <Formik initialValues={initialValues}
                                         onSubmit={async (values, {setSubmitting, setErrors}) => {
                                             try {
-                                                await changePassWord(values.confirm);
+                                                await changepassword(values.confirm);
                                                 setSubmitting(false);
                                                 history.push('/events');
                                             } catch (error) {
