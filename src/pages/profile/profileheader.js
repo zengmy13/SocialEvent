@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {Grid, Item, Statistic, Reveal, Button, Divider} from 'semantic-ui-react';
 import user from '../../assets/user.png';
-import {following, isFollowing, unFollow} from "../../firebase/fromfirebase";
+import {following, getiffollowing, unfollowing} from "../../firebase/fromfirebase";
 import {useDispatch, useSelector} from "react-redux";
 import {setfollowstatus, setunfollowstatus} from "./store/actioncreator";
 import {toast} from "react-toastify";
@@ -15,7 +15,7 @@ export default function Profileheader(props) {
         setloading(true);
         async function fetchfollowing() {
             try {
-                const result = await isFollowing(profile?.id);
+                const result = await getiffollowing(profile?.id);
                 if (result.exists) {
                     dispatch(setfollowstatus())
                 }
@@ -45,7 +45,7 @@ export default function Profileheader(props) {
     async function handleunfollowing(profile) {
         try {
             setloading(true)
-            await unFollow(profile)
+            await unfollowing(profile)
             dispatch(setunfollowstatus())
             setloading(false)
         } catch (error) {

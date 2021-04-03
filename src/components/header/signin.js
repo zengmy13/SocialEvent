@@ -9,11 +9,13 @@ export default function Signin() {
         <>
             <Menu.Item position='right'>
                 <Button content='Log in' basic size='small' inverted
-                        onClick={() => dispatch(openmodal("Login"))}/>
+                        onClick={() => dispatch(openmodal("Login"))}
+                ></Button>
             </Menu.Item>
             <Menu.Item>
                 <Button content='Register' basic size='small' inverted
-                        onClick={() => dispatch(openmodal("Register"))}/>
+                        onClick={() => dispatch(openmodal("Register"))}
+                ></Button>
             </Menu.Item>
         </>
     )

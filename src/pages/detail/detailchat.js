@@ -3,7 +3,7 @@ import {Segment, Comment} from 'semantic-ui-react';
 import userpic from '../../assets/user.png'
 import Chartform from "./chatform";
 import {useDispatch, useSelector} from "react-redux"
-import {getEventComment, makeDataTree, toarray} from "../../firebase/fromfirebase";
+import {geteventcomment, makedatatree, toarray} from "../../firebase/fromfirebase";
 import {clearcomment, getnewcomment} from "./store/actioncreators";
 import {formatDistanceToNow} from 'date-fns';
 import {Link} from 'react-router-dom';
@@ -25,7 +25,7 @@ export default function Detailchat(props) {
         })
     }
     useEffect(() => {
-        getEventComment(selectedeventid).on("value", snapshot => {
+        geteventcomment(selectedeventid).on("value", snapshot => {
                 if (!snapshot.exists()) {
                     return;
                 } else {
@@ -44,7 +44,7 @@ export default function Detailchat(props) {
                 <Chartform id={selectedeventid} parentId={0}/>
                 <Comment.Group>
                     {
-                        comment && makeDataTree(comment).map((comment, index) => {
+                        comment && makedatatree(comment).map((comment, index) => {
                             return <Comment key={comment.id}>
                                 <Comment.Avatar as={Link} to={`/profile/${comment.commenterId}`}
                                                 src={comment.photoURL || userpic} size='small'/>

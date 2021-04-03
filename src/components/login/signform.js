@@ -4,7 +4,7 @@ import {Formik, Form} from "formik";
 import {Button, Label, Divider} from "semantic-ui-react";
 import TextInput from "../../common/textinput";
 import * as Yup from 'yup';
-import {signInWithEmailAndPassword} from "../../firebase/fromfirebase";
+import {signinwithemailandpassword} from "../../firebase/fromfirebase";
 import {useDispatch} from "react-redux";
 import {closemodal} from "./store/actioncreator";
 import Sociallogin from "./sociallogin";
@@ -24,7 +24,7 @@ export default function Signinform() {
         <ModalWrap size='mini' header='Log in'>
             <Formik initialValues={initialValues} onSubmit={async (values, {setSubmitting, setErrors}) => {
                 try {
-                    await signInWithEmailAndPassword(values);
+                    await signinwithemailandpassword(values);
                     await dispatch(closemodal())
                     setSubmitting(false);
                 } catch (error) {

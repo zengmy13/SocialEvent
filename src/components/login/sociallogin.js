@@ -1,6 +1,6 @@
 import React from "react";
 import {Button, Icon} from "semantic-ui-react";
-import {loginWithProviders} from "../../firebase/fromfirebase";
+import {loginwithproviders} from "../../firebase/fromfirebase";
 import {closemodal} from "./store/actioncreator";
 import {useDispatch} from "react-redux";
 
@@ -9,7 +9,7 @@ export default function Sociallogin() {
     const dispatch = useDispatch()
 
     function handlesociallogin(provider) {
-        loginWithProviders(provider)
+        loginwithproviders(provider)
         dispatch(closemodal())
     }
     return (

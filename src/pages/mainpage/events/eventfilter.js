@@ -5,7 +5,7 @@ import 'react-calendar/dist/Calendar.css';
 import {useSelector, useDispatch} from "react-redux";
 import {changefilter, changetime, getfeeds} from "./store/actioncreators";
 import img from '../../../assets/user.png'
-import {getFeedsFromDatabase, toarray} from "../../../firebase/fromfirebase";
+import {getfeedsfromdatabase, toarray} from "../../../firebase/fromfirebase";
 import {formatDistanceToNow} from 'date-fns';
 
 export default function Eventfilter(props) {
@@ -15,7 +15,7 @@ export default function Eventfilter(props) {
     const {currentuser}=useSelector(state=>state.login);
 
     useEffect(() => {
-        getFeedsFromDatabase().on("value", snapshot => {
+        getfeedsfromdatabase().on("value", snapshot => {
             if (!snapshot.exists()) {
                 return
             } else {

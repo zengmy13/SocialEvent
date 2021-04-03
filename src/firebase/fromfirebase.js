@@ -11,12 +11,12 @@ export function toarray(item) {
     })
 }
 
-export function getFileExtension(filename) {
+export function getfileextension(filename) {
     let dot = filename.indexOf(".")
     return filename.slice(dot + 1)
 }
 
-export function makeDataTree(dataset){
+export function makedatatree(dataset){
     let hashtable=Object.create(null);
     dataset.forEach(a=>hashtable[a.id]={...a,childNodes:[]});
 
@@ -32,7 +32,7 @@ export function makeDataTree(dataset){
     return dataTree;
 }
 
-export function dealWithData(item) {
+export function dealwithdata(item) {
     const data = item.data()
     for (const props in data) {
         if (data.hasOwnProperty(props)) {
@@ -47,26 +47,26 @@ export function dealWithData(item) {
     }
 }
 
-export function getEventsFromFirestore(filter,startdate,limit,lastget) {
-    const user = firebase.auth().currentuser;
-    let eventsRef=db.collection("events").orderBy("date")
+export function geteventsfromfirestore(filter,startdate,limit,lastget) {
+    const user = firebase.auth().currentUser;
+    let eventsref=db.collection("events").orderBy("date")
     switch (filter) {
         case "going":
-            return eventsRef.where("attendeesId", "array-contains", user?.uid)
+            return eventsref.where("attendeesId", "array-contains", user?.uid)
                 .where("date", ">=", startdate).startAfter(lastget).limit(limit);;
         case "hosting":
-            return eventsRef.where("hostUid", "==", user?.uid)
+            return eventsref.where("hostUid", "==", user?.uid)
                 .where("date", ">=", startdate).startAfter(lastget).limit(limit);;
     }
-    return eventsRef.where("date", ">=", startdate).startAfter(lastget).limit(limit);
+    return eventsref.where("date", ">=", startdate).startAfter(lastget).limit(limit);
 }
 
-export function getSpecificEventFromFirestore(id) {
+export function getspecificeventfromfirestore(id) {
     return db.collection("events").doc(id);
 }
 
-export function addNewEventToFirestore(event) {
-    const user = firebase.auth().currentuser;
+export function addneweventtofirestore(event) {
+    const user = firebase.auth().currentUser;
     return db.collection("events").add({
         ...event,
         id: uid(),
@@ -82,52 +82,52 @@ export function addNewEventToFirestore(event) {
     })
 }
 
-export function updateSelectedEvent(event) {
+export function updateselectedevent(event) {
     return db.collection("events").doc(event.id).update(event)
 }
 
-export function selectEvent(eventid) {
+export function selectevent(eventid) {
     return db.collection("events").doc(eventid);
 }
 
-export function signInWithEmailAndPassword(values) {
+export function signinwithemailandpassword(values) {
     return firebase.auth().signInWithEmailAndPassword(values.email, values.password)
 }
 
 export function signout() {
-    return firebase.auth().signout();
+    return firebase.auth().signOut();
 }
 
-export async function createNewUserInFirebase(values) {
+export async function createnewuserinfirebase(values) {
     try {
         const result = await firebase.auth().createUserWithEmailAndPassword(values.email, values.password);
         await result.user.updateProfile({
             displayName: values.displayName
         })
-        return await setNewUser(result.user)
+        return await setnewuser(result.user)
     } catch (error) {
         throw error;
     }
 }
 
-export async function loginWithProviders(userprovider) {
+export async function loginwithproviders(userprovider) {
     let provider;
-    if (userprovider === "facebook") {
+    if (userprovider == "facebook") {
         provider = new firebase.auth.FacebookAuthProvider();
-    } else if (userprovider === "google") {
+    } else if (userprovider == "google") {
         provider = new firebase.auth.GoogleAuthProvider();
     }
     try {
         const result = await firebase.auth().signInWithPopup(provider);
         if (result.additionalUserInfo.isNewUser) {
-            await setNewUser(result.user)
+            await setnewuser(result.user)
         }
     } catch (error) {
         throw error;
     }
 }
 
-export function setNewUser(user) {
+export function setnewuser(user) {
     return db.collection("users").doc(user.uid).set({
         displayName: user.displayName,
         email: user.email,
@@ -136,13 +136,13 @@ export function setNewUser(user) {
     })
 }
 
-export function changePassWord(password) {
-    const user = firebase.auth().currentuser;
+export function changepassword(password) {
+    const user = firebase.auth().currentUser;
     return user.updatePassword(password)
 }
 
-export function joinEvent(event) {
-    const user = firebase.auth().currentuser;
+export function jointheevent(event) {
+    const user = firebase.auth().currentUser;
     return db.collection("events").doc(event.id).update({
         attendeesId: firebase.firestore.FieldValue.arrayUnion(user.uid),
         attendees: firebase.firestore.FieldValue.arrayUnion({
@@ -153,8 +153,8 @@ export function joinEvent(event) {
     })
 }
 
-export function cancelPlace(event) {
-    const user = firebase.auth().currentuser;
+export function cancelplace(event) {
+    const user = firebase.auth().currentUser;
     return db.collection("events").doc(event.id).update({
         attendeesId: firebase.firestore.FieldValue.arrayRemove(user.uid),
         attendees: firebase.firestore.FieldValue.arrayRemove({
@@ -165,14 +165,14 @@ export function cancelPlace(event) {
     })
 }
 
-export function deleteEventFromFirestore(event) {
+export function deleteeventfromfirestore(event) {
     return db.collection("events").doc(event.id).update({
         isCancel: !event.isCancel
     })
 }
 
-export function addCommentToFirebase(eventid, values, parentId) {
-    const user = firebase.auth().currentuser;
+export function addcommenttofirebase(eventid, values, parentId) {
+    const user = firebase.auth().currentUser;
     const comment = {
         text: values.comment,
         commenterId: user.uid,
@@ -184,13 +184,13 @@ export function addCommentToFirebase(eventid, values, parentId) {
     return firebase.database().ref(`chat/${eventid}`).push(comment)
 }
 
-export function getEventComment(eventid) {
+export function geteventcomment(eventid) {
     return firebase.database().ref(`/chat/${eventid}`).orderByKey()
 }
 
-export async function updateUserInfo(info) {
-    const user = firebase.auth().currentuser;
-    const allEvents = db.collection("events")
+export async function updateuserinfo(info) {
+    const user = firebase.auth().currentUser;
+    const allevents = db.collection("events")
         .where("attendeesId", "array-contains", user.uid)
     const followings = db.collection("follow")
         .doc(user.uid).collection("following")
@@ -200,7 +200,7 @@ export async function updateUserInfo(info) {
             displayName: info.displayName,
             description: info.description
         })
-        const result = await allEvents.get();
+        const result = await allevents.get();
         for (let i = 0; i < result.docs.length; i++) {
             if (result.docs[i].data().hostUid === user.uid) {
                 batch.update(result.docs[i].ref, {
@@ -217,8 +217,8 @@ export async function updateUserInfo(info) {
                     })
             })
         }
-        const followResult = await followings.get();
-        followResult.docs.forEach((item) => {
+        const followresult = await followings.get();
+        followresult.docs.forEach((item) => {
             batch.update(db.collection("follow")
                 .doc(item.id)
                 .collection("follower")
@@ -236,18 +236,18 @@ export async function updateUserInfo(info) {
 
 }
 
-export function addPhotoToStorage(filename, file) {
-    const user = firebase.auth().currentuser;
+export function addphototostorage(filename, file) {
+    const user = firebase.auth().currentUser;
     const storage = firebase.storage().ref();
     return storage.child(`${user.uid}/images/${filename}`).put(file)
 }
 
-export async function updateProfilePhoto(url, filename) {
-    const user = firebase.auth().currentuser;
+export async function updateprofilephoto(url, filename) {
+    const user = firebase.auth().currentUser;
     const ref = db.collection("users").doc(user.uid)
     try {
-        const userInfo = await ref.get();
-        if (!userInfo.data().photoURL) {
+        const userinfo = await ref.get();
+        if (!userinfo.data().photoURL) {
             await db.collection("users").doc(user.uid).update({
                 photoURL: url
             })
@@ -264,23 +264,23 @@ export async function updateProfilePhoto(url, filename) {
     }
 }
 
-export function getPhotosFromStorage(id) {
+export function getphotosfromstorage(id) {
     return db.collection("users").doc(id).collection("photos")
 }
 
-export function deletePhoto(photoid) {
-    const user = firebase.auth().currentuser;
+export function deletephoto(photoid) {
+    const user = firebase.auth().currentUser;
     return db.collection("users").doc(user.uid).collection("photos").doc(photoid).delete()
 }
 
-export function deletePhotoInStorage(filename) {
+export function deletephotoinstorage(filename) {
     const ref = firebase.storage().ref();
-    const user = firebase.auth().currentuser;
+    const user = firebase.auth().currentUser;
     return ref.child(`${user.uid}/images/${filename}`).delete()
 }
 
-export function getUserEventsTab(key,profile) {
-    const user = firebase.auth().currentuser;
+export function getusereventstab(key,profile) {
+    const user = firebase.auth().currentUser;
     switch (key) {
         case 1:
             return db.collection("events")
@@ -297,12 +297,12 @@ export function getUserEventsTab(key,profile) {
     }
 }
 
-export function getProfile(profileid) {
+export function getprofile(profileid) {
     return db.collection("users").doc(profileid);
 }
 
 export async function following(profile) {
-    const user = firebase.auth().currentuser;
+    const user = firebase.auth().currentUser;
     const batch = db.batch();
     try {
         batch.set(db.collection("follow").doc(user.uid).collection("following")
@@ -321,8 +321,8 @@ export async function following(profile) {
     }
 }
 
-export async function unFollow(profile) {
-    const user = firebase.auth().currentuser;
+export async function unfollowing(profile) {
+    const user = firebase.auth().currentUser;
     const batch = db.batch();
     try {
         batch.delete(db.collection("follow").doc(user.uid).collection("following").doc(profile?.id))
@@ -335,32 +335,32 @@ export async function unFollow(profile) {
     }
 }
 
-export function isFollowing(profileid) {
-    const user = firebase.auth().currentuser
+export function getiffollowing(profileid) {
+    const user = firebase.auth().currentUser
     return db.collection("follow")
         .doc(user.uid).collection("following")
         .doc(profileid).get()
 }
 
-export function getFollowersProfile(profileid) {
+export function getfollowersprofile(profileid) {
     return db.collection("follow")
         .doc(profileid).collection("follower");
 }
 
-export function getFollowingProfile(profileid) {
+export function getfolloweingprofile(profileid) {
     return db.collection("follow")
         .doc(profileid).collection("following");
 }
 
-export function getFeedsFromDatabase() {
-    const user = firebase.auth().currentuser;
+export function getfeedsfromdatabase() {
+    const user = firebase.auth().currentUser;
     return firebase.database().ref(`posts/${user?.uid}`)
         .orderByKey()
         .limitToLast(5);
 }
 
-export async function setMainPhoto(photo) {
-    const user = firebase.auth().currentuser;
+export async function setmainphoto(photo) {
+    const user = firebase.auth().currentUser;
     const allevents = db.collection("events")
         .where("attendeesId", "array-contains", user.uid)
     const followings = db.collection("follow")
@@ -387,8 +387,8 @@ export async function setMainPhoto(photo) {
                     })
             })
         }
-        const followResult = await followings.get();
-        followResult.docs.forEach((item) => {
+        const followresult = await followings.get();
+        followresult.docs.forEach((item) => {
             batch.update(db.collection("follow")
                 .doc(item.id)
                 .collection("follower")
@@ -403,4 +403,10 @@ export async function setMainPhoto(photo) {
     } catch (error) {
         throw error;
     }
+
+
+
+
+
+
 }

@@ -4,7 +4,7 @@ import TextArea from "../../common/textarea";
 import TextInput from "../../common/textinput";
 import * as Yup from 'yup'
 import {Button} from "semantic-ui-react";
-import {updateUserInfo} from "../../firebase/fromfirebase";
+import {updateuserinfo} from "../../firebase/fromfirebase";
 import {useDispatch} from "react-redux";
 import {updateuser} from "../../components/login/store/actioncreator";
 import {toast} from "react-toastify";
@@ -23,7 +23,7 @@ export default function Aboutform(props) {
         <Formik initialValues={initialValues} onSubmit={async (values, {setSubmitting}) => {
             try {
                 setSubmitting(true)
-                await updateUserInfo(values);
+                await updateuserinfo(values);
                 await dispatch(updateuser(values));
                 setSubmitting(false);
                 setedit(false);

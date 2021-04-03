@@ -1,8 +1,8 @@
 import React from 'react';
 import {Grid, Header, Tab, Card, Image} from "semantic-ui-react";
-import {UseDocsHook} from "../../hook/firestorehook";
+import {Usedocshook} from "../../hook/firestorehook";
 import user from '../../assets/user.png'
-import {getFollowingProfile, getFollowersProfile} from "../../firebase/fromfirebase";
+import {getfolloweingprofile, getfollowersprofile} from "../../firebase/fromfirebase";
 import {useDispatch, useSelector} from "react-redux";
 import {followerprofile, followingprofile} from "./store/actioncreator";
 import {Link} from 'react-router-dom';
@@ -11,8 +11,8 @@ export default function Followtab(props) {
     const {activeIndex, profile} = props;
     const dispatch = useDispatch();
     const {followings, followers} = useSelector(state => state.profile)
-    UseDocsHook({
-        query: activeIndex == 3 ? getFollowingProfile(profile?.id) : getFollowersProfile(profile?.id),
+    Usedocshook({
+        query: activeIndex == 3 ? getfolloweingprofile(profile?.id) : getfollowersprofile(profile?.id),
         data: (data) => activeIndex == 3 ? dispatch(followingprofile(data)) : dispatch(followerprofile(data)),
         deps: [dispatch, activeIndex]
     })

@@ -13,7 +13,7 @@ export default function Detailiteminfo(props) {
             <Segment>
                 <Grid>
                     <Grid.Column width={1}>
-                        <Icon name='info' color='teal'/>
+                        <Icon name='info' color='teal'></Icon>
                     </Grid.Column>
                     <Grid.Column width={14}>
                         {selectedevent?.description}
@@ -23,7 +23,7 @@ export default function Detailiteminfo(props) {
             <Segment>
                 <Grid>
                     <Grid.Column width={1}>
-                        <Icon name='calendar' color='teal'/>
+                        <Icon name='calendar' color='teal'></Icon>
                     </Grid.Column>
                     <Grid.Column width={14}>
                         {selectedevent?.date && format(selectedevent?.date, "dd/MM/yyyy HH:mm a")}
@@ -33,7 +33,7 @@ export default function Detailiteminfo(props) {
             <Segment>
                 <Grid>
                     <Grid.Column width={1} verticalAlign='middle'>
-                        <Icon name='marker' color='teal'/>
+                        <Icon name='marker' color='teal'></Icon>
                     </Grid.Column>
                     <Grid.Column width={7}>
                         {`${selectedevent?.city.address}/${selectedevent?.venue.address}`}

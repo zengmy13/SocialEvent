@@ -3,8 +3,8 @@ import {Container, Grid, Segment} from "semantic-ui-react";
 import Profileheader from "./profileheader";
 import Profiletab from "./profiletab";
 import {useSelector, useDispatch} from "react-redux";
-import {UsingAldocHook} from "../../hook/firestorehook";
-import {getProfile} from "../../firebase/fromfirebase";
+import {Usesingaldochook} from "../../hook/firestorehook";
+import {getprofile} from "../../firebase/fromfirebase";
 import {getprofiles} from "./store/actioncreator";
 
 export default function Profile(props) {
@@ -14,8 +14,8 @@ export default function Profile(props) {
     const {profile} = useSelector(state => state.profile);
     const {loading,error}=useSelector(state=>state.asyn)
 
-    UsingAldocHook({
-        query: getProfile(id),
+    Usesingaldochook({
+        query: getprofile(id),
         data: (data) => dispatch(getprofiles(data)),
         deps: [dispatch,id]
     })

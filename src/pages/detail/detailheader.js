@@ -2,7 +2,7 @@ import React,{useState} from "react";
 import {Segment, Button, Image, Item} from "semantic-ui-react";
 import {Link} from "react-router-dom";
 import {useSelector} from "react-redux";
-import {cancelPlace, joinEvent} from "../../firebase/fromfirebase";
+import {cancelplace, jointheevent} from "../../firebase/fromfirebase";
 import {toast} from "react-toastify";
 import Anauthmodal from "../../components/login/unauthmodal";
 
@@ -16,7 +16,7 @@ export default function Detailheader(props) {
     async function handlecancel() {
         setloading(true);
         try {
-            await cancelPlace(selectedevent);
+            await cancelplace(selectedevent);
             setloading(false);
         } catch (error) {
             toast.error(error.message)
@@ -27,7 +27,7 @@ export default function Detailheader(props) {
     async function handlejoin() {
         setloading(true)
         try {
-            await joinEvent(selectedevent);
+            await jointheevent(selectedevent);
             setloading(false);
         } catch (error) {
             toast.error(error.message)

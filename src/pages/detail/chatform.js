@@ -1,7 +1,7 @@
 import React from 'react';
 import {Formik, Field, Form} from "formik";
 import * as Yup from 'yup';
-import {addCommentToFirebase} from "../../firebase/fromfirebase";
+import {addcommenttofirebase} from "../../firebase/fromfirebase";
 
 
 export default function Chartform(props) {
@@ -18,7 +18,7 @@ export default function Chartform(props) {
                 onSubmit={async (values, {setSubmitting, resetForm}) => {
                     try {
                         setSubmitting(true);
-                        await addCommentToFirebase(id, values, parentId)
+                        await addcommenttofirebase(id, values, parentId)
                         resetForm();
                         setSubmitting(false);
                         closeform();

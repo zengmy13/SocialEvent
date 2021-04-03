@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
 import {Button, Grid, Header, Tab, Card, Image} from "semantic-ui-react";
 import Phototab from "./photo";
-import {deletePhoto, deletePhotoInStorage, getPhotosFromStorage, setMainPhoto} from "../../firebase/fromfirebase";
-import {UseDocsHook} from "../../hook/firestorehook";
+import {deletephoto, deletephotoinstorage, getphotosfromstorage, setmainphoto} from "../../firebase/fromfirebase";
+import {Usedocshook} from "../../hook/firestorehook";
 import {useDispatch, useSelector} from "react-redux";
 import {setphotos} from "./store/actioncreator";
 import {toast} from "react-toastify";
@@ -20,8 +20,8 @@ export default function Displayphoto(props) {
         loading: false,
         target: null
     })
-    UseDocsHook({
-        query: getPhotosFromStorage(profile?.id),
+    Usedocshook({
+        query: getphotosfromstorage(profile?.id),
         data: (data) => dispatch(setphotos(data)),
         deps: [dispatch]
     })
@@ -32,8 +32,8 @@ export default function Displayphoto(props) {
                 loading: true,
                 target: id
             })
-            await deletePhoto(id);
-            await deletePhotoInStorage(name)
+            await deletephoto(id);
+            await deletephotoinstorage(name)
             setloading({
                 loading: false,
                 target: null
@@ -52,7 +52,7 @@ export default function Displayphoto(props) {
                loading: true,
                target: item?.id
            })
-          await setMainPhoto(item)
+          await setmainphoto(item)
            setmainloading({
                loading: false,
                target: null

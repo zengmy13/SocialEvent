@@ -7,7 +7,7 @@ import Header from "./components/header";
 import Detailpage from "./pages/detail";
 import Signinform from "./components/login/signform";
 import Modalmanage from "./components/login/modalmanage";
-import ChangePassWord from "./components/header/changePassWord";
+import Changepassword from "./components/header/changepassword";
 import Errorpage from "./pages/Errorpage";
 import Profile from "./pages/profile";
 import ScrollToTop from "./scrolltotop";
@@ -40,7 +40,7 @@ function App() {
                             <Privaterouter path={['/create', '/manage/:selectedid']} exact component={Formpage}></Privaterouter>
                             <Route path='/eventdetail/:id' exact component={Detailpage}></Route>
                             <Route path='/sign' exact component={Signinform}></Route>
-                            <Privaterouter path='/account' exact component={ChangePassWord}></Privaterouter>
+                            <Privaterouter path='/account' exact component={Changepassword}></Privaterouter>
                             <Privaterouter path='/profile/:id' exact component={Profile}></Privaterouter>
                             <Route component={Errorpage}></Route>
                         </Switch>

@@ -1,15 +1,15 @@
 import {CHANGE_DATE, CHANGE_FILTER, CLEAR_EVENTS, GET_EVENTS, GET_FEEDS, SET_MESSAGE} from "./actiontype";
 import {aynscserror, aynscsfinish, aynscstart} from "../../../../store/asyn/actioncreators";
-import {dealWithData, getEventsFromFirestore} from "../../../../firebase/fromfirebase";
+import {dealwithdata, geteventsfromfirestore} from "../../../../firebase/fromfirebase";
 
 export  function fetchdata(filter, startdate,limit,last){
     return async (dispatch)=>{
         dispatch(aynscstart());
         try{
-            const result= await getEventsFromFirestore(filter,startdate,limit,last).get();
+            const result= await geteventsfromfirestore(filter,startdate,limit,last).get();
             const lastvisible=result.docs[result.docs.length-1];
             const moreevents=result.docs.length>=limit;
-            const events=result.docs.map(item=>dealWithData(item));
+            const events=result.docs.map(item=>dealwithdata(item));
             dispatch(getevents(events,moreevents))
             dispatch(aynscsfinish());
             return lastvisible;

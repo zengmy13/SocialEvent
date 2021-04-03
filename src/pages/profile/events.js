@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {Grid, Header, Tab, Card, Image} from "semantic-ui-react";
-import {UseDocsHook} from "../../hook/firestorehook";
-import {getUserEventsTab} from "../../firebase/fromfirebase";
+import {Usedocshook} from "../../hook/firestorehook";
+import {getusereventstab} from "../../firebase/fromfirebase";
 import {useDispatch, useSelector} from "react-redux";
 import {geteventstab} from "./store/actioncreator";
 import logodrinks from '../../assets/categoryImages/drinks.jpg';
@@ -21,8 +21,8 @@ export default function Events(props) {
         {menuItem: 'Hosting', pane: {key: "host"}}
     ]
 
-    UseDocsHook({
-        query: getUserEventsTab(key,profile),
+    Usedocshook({
+        query: getusereventstab(key,profile),
         data: (data) => dispatch(geteventstab(data)),
         deps: [key, dispatch]
     })

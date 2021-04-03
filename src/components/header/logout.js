@@ -12,7 +12,7 @@ export default function Logout() {
     const history = useHistory();
     const {currentuser} = useSelector(state => state.login);
     const dispatch = useDispatch()
-    async function handleLogout() {
+    async function handlelogout() {
         try{
             history.push("/")
             await signout();
@@ -29,7 +29,7 @@ export default function Logout() {
                     <Dropdown.Item as={Link} to='/create' icon='plus' text='Create events'/>
                     <Dropdown.Item icon='user' text='My profile' as={Link} to={`/profile/${currentuser.uid}`}/>
                     <Dropdown.Item as={Link} to='/account' icon='settings' text='Settings'/>
-                    <Dropdown.Item icon='power' text='Log out' onClick={() => handleLogout()}/>
+                    <Dropdown.Item icon='power' text='Log out' onClick={() => handlelogout()}/>
                 </Dropdown.Menu>
             </Dropdown>
         </Menu.Item>

@@ -1,9 +1,9 @@
 import {useEffect} from 'react';
 import {useDispatch} from "react-redux";
 import {aynscserror, aynscsfinish, aynscstart} from "../store/asyn/actioncreators";
-import {dealWithData} from "../firebase/fromfirebase";
+import {dealwithdata} from "../firebase/fromfirebase";
 
-export function UseDocsHook(props) {
+export function Usedocshook(props) {
     const dispatch = useDispatch();
     const {deps, data, query, shouldexecute = true} = props;
 
@@ -13,23 +13,23 @@ export function UseDocsHook(props) {
         }
         dispatch(aynscstart());
         query.onSnapshot(snapshot => {
-            const docs = snapshot.docs.map(item => dealWithData(item))
+            const docs = snapshot.docs.map(item => dealwithdata(item))
             data(docs);
             dispatch(aynscsfinish())
         }, error => dispatch(aynscserror(error)));
     }, deps)
 }
 
-export function UsingAldocHook(props) {
+export function Usesingaldochook(props) {
     const dispatch = useDispatch();
-    const {deps, data, query, shouldExecute = true} = props;
+    const {deps, data, query, shouldexecute = true} = props;
     useEffect(() => {
-        if (shouldExecute === false) {
+        if (shouldexecute == false) {
             return;
         }
         dispatch(aynscstart());
         query.onSnapshot(snapshot => {
-            data(dealWithData(snapshot))
+            data(dealwithdata(snapshot))
             dispatch(aynscsfinish())
         }, error => dispatch(aynscserror(error)));
     }, deps)

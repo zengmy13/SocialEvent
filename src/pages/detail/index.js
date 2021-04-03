@@ -2,8 +2,8 @@ import React from "react";
 import {Container, Grid} from "semantic-ui-react";
 import Detailitem from "./detailitem";
 import Attendeelist from "./attendeelist";
-import {selectEvent} from "../../firebase/fromfirebase";
-import {UsingAldocHook} from "../../hook/firestorehook";
+import {selectevent} from "../../firebase/fromfirebase";
+import {Usesingaldochook} from "../../hook/firestorehook";
 import {getselectevent} from "./store/actioncreators";
 import {useDispatch, useSelector} from "react-redux";
 import Loadingpage from "../loading";
@@ -14,8 +14,8 @@ export default function Detailpage(props) {
     const dispatch = useDispatch();
     const {selectedevent} = useSelector(state => state.detail);
     const {loading, error} = useSelector(state => state.asyn)
-    UsingAldocHook({
-        query: selectEvent(id),
+    Usesingaldochook({
+        query: selectevent(id),
         data: (data) => dispatch(getselectevent(data)),
         deps: [dispatch, id]
     })
