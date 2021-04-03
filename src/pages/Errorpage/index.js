@@ -9,10 +9,10 @@ export default function Errorpage() {
         <Segment placeholder>
             <Header textAlign='center' content={error?.message || "We have an error"}/>
             <Button as={Link} to='/events'
-                    primary
-                    style={{marginTop: 20}}
-                    content='Return to events page'
-            ></Button>
+                primary
+                style={{marginTop: 20}}
+                content='Return to events page'
+            />
         </Segment>
     )
 }

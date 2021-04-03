@@ -4,8 +4,6 @@ import {useField, useFormikContext} from "formik";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css"
 
-
-
 export default function DateInput(props) {
     const [field, meta] = useField(props);
     const {setFieldValue} = useFormikContext();
@@ -20,9 +18,10 @@ export default function DateInput(props) {
                 onChange={date => setFieldValue(field.name, date)}
                 autoComplete="off"
             />
-            {meta.error && meta.touched ? (<Label color='red' basic pointing>
-                {meta.error}
-            </Label>) : null
+            {meta.error && meta.touched ? (
+                <Label color='red' basic pointing>
+                    {meta.error}
+                </Label>) : null
             }
         </FormField>
     )

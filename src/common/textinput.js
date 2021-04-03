@@ -12,7 +12,5 @@ export default function TextInput(props) {
             </Label>) : null
             }
         </FormField>
-
-
     )
 }

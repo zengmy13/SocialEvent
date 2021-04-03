@@ -3,7 +3,7 @@ import {Button, Grid, Header} from "semantic-ui-react";
 import Dropzone from "./dropzone";
 import Cropperbox from "./cropper";
 import {uid} from 'uid';
-import {addphototostorage, getfileextension, updateprofilephoto} from "../../firebase/fromfirebase";
+import {addPhotoToStorage, getFileExtension, updateProfilePhoto} from "../../firebase/fromfirebase";
 import {toast} from "react-toastify";
 
 export default function Phototab() {
@@ -16,16 +16,16 @@ export default function Phototab() {
     }
 
     async function handlekeepphoto() {
-        const filename = uid() + '.' + getfileextension(file[0].name);
+        const filename = uid() + '.' + getFileExtension(file[0].name);
         setuploading(true)
-        const upload = addphototostorage(filename, image);
+        const upload = addPhotoToStorage(filename, image);
         upload.on("state_changed",
             snapshot => console.log(snapshot),
             error => {
                 toast.error(error.message)
             }, () => {
                 upload.snapshot.ref.getDownloadURL().then(url => {
-                    updateprofilephoto(url, filename).then(item => {
+                    updateProfilePhoto(url, filename).then(item => {
                         setuploading(false);
                         handlecancel();
                     })

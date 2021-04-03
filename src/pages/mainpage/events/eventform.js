@@ -10,9 +10,9 @@ import SelectInput from "../../../common/selectinput";
 import DateInput from "../../../common/dateinput";
 import {Link,useLocation,Redirect} from 'react-router-dom';
 import {Confirm} from "semantic-ui-react";
-import {addneweventtofirestore, deleteeventfromfirestore, getspecificeventfromfirestore, updateselectedevent} from "../../../firebase/fromfirebase";
+import {addNewEventToFirestore, deleteEventFromFirestore, getSpecificEventFromFirestore, updateSelectedEvent} from "../../../firebase/fromfirebase";
 import {useDispatch, useSelector} from "react-redux";
-import {Usesingaldochook} from "../../../hook/firestorehook";
+import {UsingAldocHook} from "../../../hook/firestorehook";
 import {clearselectedevent, getselectevent} from "../../detail/store/actioncreators";
 import PlaceInput from "../../../common/placeInput";
 import Loadingpage from "../../loading";
@@ -34,9 +34,9 @@ export default function Eventform(props) {
         dispatch(clearselectedevent());
     },[location.pathname,dispatch]);
 
-    Usesingaldochook({
+    UsingAldocHook({
         shouldexecute: selectedid!==selectedevent?.id && location.pathname!=='/create',
-        query: getspecificeventfromfirestore(selectedid),
+        query: getSpecificEventFromFirestore(selectedid),
         data: (data) => dispatch(getselectevent(data)),
         deps: [dispatch, selectedid]
     })
@@ -75,7 +75,7 @@ export default function Eventform(props) {
         try {
             setconfirmopen(false);
             setconfirmloading(true);
-            await deleteeventfromfirestore(selectedevent);
+            await deleteEventFromFirestore(selectedevent);
             setconfirmloading(false);
         } catch (error) {
             toast.error(error.message)
@@ -91,8 +91,8 @@ export default function Eventform(props) {
                 enableReinitialize
                 initialValues={initialvalues} onSubmit={async (values, {setSubmitting}) => {
                 try {
-                    selectedevent ? updateselectedevent(values)
-                        : await addneweventtofirestore(values)
+                    selectedevent ? updateSelectedEvent(values)
+                        : await addNewEventToFirestore(values)
                     setSubmitting(false);
                     history.push("/events");
                 } catch (error) {

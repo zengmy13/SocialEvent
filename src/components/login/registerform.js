@@ -4,7 +4,7 @@ import {Formik, Form} from "formik";
 import {Button, Label, Divider} from "semantic-ui-react";
 import TextInput from "../../common/textinput";
 import * as Yup from 'yup';
-import {createnewuserinfirebase} from "../../firebase/fromfirebase";
+import {createNewUserInFirebase} from "../../firebase/fromfirebase";
 import {useDispatch} from "react-redux";
 import {closemodal} from "./store/actioncreator";
 import Sociallogin from "./sociallogin";
@@ -27,7 +27,7 @@ export default function Registerform() {
             <Formik initialValues={initialValues}
                     onSubmit={async (values, {setSubmitting, setErrors}) => {
                         try {
-                            await createnewuserinfirebase(values);
+                            await createNewUserInFirebase(values);
                             await dispatch(closemodal())
                             setSubmitting(false);
                         } catch (error) {

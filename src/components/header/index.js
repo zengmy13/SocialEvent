@@ -13,7 +13,7 @@ export default function Header() {
         <Menu  inverted attached='top' stackable>
             <Container>
                 <Menu.Item as={NavLink} to='/events'>
-                    <img src={logo} alt='logo' style={{marginRight:3}}></img>
+                    <img src={logo} alt='logo' style={{marginRight: 3}}/>
                     First project
                 </Menu.Item>
                 <Menu.Item as={NavLink} to='/events'>
