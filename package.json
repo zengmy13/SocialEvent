@@ -10,6 +10,7 @@
     "connected-react-router": "^6.8.0",
     "date-fns": "^2.16.1",
     "firebase": "^8.2.4",
+    "firebase-functions": "^3.13.2",
     "formik": "^2.2.6",
     "google-map-react": "^2.1.9",
     "history": "^4.10.1",
@@ -37,7 +38,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "deploy": "npm run build && firebase deploy"
   },
   "eslintConfig": {
     "extends": [

@@ -112,9 +112,9 @@ export async function createnewuserinfirebase(values) {
 
 export async function loginwithproviders(userprovider) {
     let provider;
-    if (userprovider == "facebook") {
+    if (userprovider === "facebook") {
         provider = new firebase.auth.FacebookAuthProvider();
-    } else if (userprovider == "google") {
+    } else if (userprovider === "google") {
         provider = new firebase.auth.GoogleAuthProvider();
     }
     try {
